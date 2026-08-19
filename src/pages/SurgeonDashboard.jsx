@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { supabase } from '../supabaseClient'
 import { getCases } from '../services/dataService'
 import Sidebar from '../components/Sidebar'
 import BottomNav from '../components/BottomNav'
@@ -59,6 +60,7 @@ export default function SurgeonDashboard() {
   const [loading, setLoading] = useState(true)
   const [search, setSearch] = useState('')
   const [isOffline, setIsOffline] = useState(false)
+  const [updatingId, setUpdatingId] = useState(null)
 
   const fetchCases = async () => {
     try {
@@ -72,6 +74,27 @@ export default function SurgeonDashboard() {
       setIsOffline(true)
     } finally {
       setLoading(false)
+    }
+  }
+
+  const handleUpdateCaseStatus = async (caseId, newStatus) => {
+    try {
+      setUpdatingId(caseId)
+      if (!isOffline) {
+        const { error } = await supabase
+          .from('cases')
+          .update({ status: newStatus })
+          .eq('id', caseId)
+
+        if (error) throw error
+      }
+
+      setCases(prev => prev.map(c => c.id === caseId ? { ...c, status: newStatus } : c))
+    } catch (err) {
+      console.error(err)
+      alert("Erro ao atualizar status: " + err.message)
+    } finally {
+      setUpdatingId(null)
     }
   }
 
@@ -286,10 +309,24 @@ export default function SurgeonDashboard() {
                         <td className="px-6 py-4">{c.procedures?.description || 'Não especificado'}</td>
                         <td className="px-6 py-4 text-on-surface-variant">{c.hospitals?.name || 'Não especificado'}</td>
                         <td className="px-6 py-4">
-                          <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold ${getStatusStyle(c.status)}`}>
-                            <span className={`w-1.5 h-1.5 rounded-full ${getStatusDot(c.status)}`}></span>
-                            {c.status}
-                          </span>
+                          <select
+                            value={c.status}
+                            disabled={updatingId === c.id}
+                            onChange={(e) => handleUpdateCaseStatus(c.id, e.target.value)}
+                            className={`font-bold text-xs rounded-full px-3 py-1.5 border-0 focus:ring-2 focus:ring-secondary cursor-pointer transition-all ${
+                              c.status === 'Autorizado' ? 'bg-emerald-100 text-emerald-900 border border-emerald-300' :
+                              c.status === 'Em Análise' ? 'bg-blue-100 text-blue-900 border border-blue-300' :
+                              c.status === 'Pendente Docs' ? 'bg-amber-100 text-amber-900 border border-amber-300' :
+                              c.status === 'Negado' ? 'bg-rose-100 text-rose-900 border border-rose-300' :
+                              'bg-purple-100 text-purple-900 border border-purple-300'
+                            }`}
+                          >
+                            <option value="Em Análise">⏳ Em Análise</option>
+                            <option value="Autorizado">✅ Autorizado</option>
+                            <option value="Pendente Docs">⚠️ Pendente Docs</option>
+                            <option value="Aguardando Orçamento">💬 Aguardando Orçamento</option>
+                            <option value="Negado">❌ Negado</option>
+                          </select>
                         </td>
                         <td className="px-6 py-4 text-on-surface-variant">
                           {c.proposed_date ? new Date(c.proposed_date).toLocaleDateString('pt-BR') : 'A agendar'}

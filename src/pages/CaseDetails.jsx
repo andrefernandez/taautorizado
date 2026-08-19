@@ -211,12 +211,29 @@ export default function CaseDetails() {
                   Procedimento: {item.procedures?.description} • Dr. Silva
                 </p>
               </div>
-              <span className={`inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-sm font-bold self-start sm:self-auto ${
-                item.status === 'Autorizado' ? 'bg-secondary-container text-on-secondary-container' :
-                item.status === 'Negado' ? 'bg-error-container text-on-error-container' : 'bg-surface-container text-secondary'
-              }`}>
-                {item.status}
-              </span>
+              
+              {/* Interactive Status Selector */}
+              <div className="flex items-center gap-2 self-start sm:self-auto bg-surface-container-lowest p-2 rounded-xl border border-outline-variant/40 shadow-sm">
+                <span className="text-xs font-bold text-on-surface-variant pl-2">Status:</span>
+                <select
+                  value={item.status}
+                  disabled={updatingStatus}
+                  onChange={(e) => handleUpdateStatus(e.target.value)}
+                  className={`font-bold text-xs rounded-lg px-3 py-2 border-0 focus:ring-2 focus:ring-secondary cursor-pointer transition-all ${
+                    item.status === 'Autorizado' ? 'bg-emerald-100 text-emerald-900 border border-emerald-300' :
+                    item.status === 'Em Análise' ? 'bg-blue-100 text-blue-900 border border-blue-300' :
+                    item.status === 'Pendente Docs' ? 'bg-amber-100 text-amber-900 border border-amber-300' :
+                    item.status === 'Negado' ? 'bg-rose-100 text-rose-900 border border-rose-300' :
+                    'bg-purple-100 text-purple-900 border border-purple-300'
+                  }`}
+                >
+                  <option value="Em Análise">⏳ Em Análise</option>
+                  <option value="Autorizado">✅ Autorizado</option>
+                  <option value="Pendente Docs">⚠️ Pendente Docs</option>
+                  <option value="Aguardando Orçamento">💬 Aguardando Orçamento</option>
+                  <option value="Negado">❌ Negado</option>
+                </select>
+              </div>
             </div>
           </div>
 
@@ -226,10 +243,32 @@ export default function CaseDetails() {
               
               {/* Timeline Card */}
               <div className="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/30 shadow-level-1">
-                <h3 className="font-title-lg text-title-lg text-on-background font-bold mb-6 flex items-center gap-2">
-                  <span className="material-symbols-outlined text-secondary">timeline</span>
-                  Status da Solicitação
-                </h3>
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6 border-b border-outline-variant/20 pb-3">
+                  <h3 className="font-title-lg text-title-lg text-on-background font-bold flex items-center gap-2">
+                    <span className="material-symbols-outlined text-secondary">timeline</span>
+                    Status da Solicitação
+                  </h3>
+                  
+                  {/* Quick Change Chips */}
+                  <div className="flex flex-wrap gap-1.5 items-center">
+                    <span className="text-[11px] text-on-surface-variant font-medium mr-1">Alterar para:</span>
+                    {['Em Análise', 'Autorizado', 'Pendente Docs', 'Negado'].map(st => (
+                      <button
+                        key={st}
+                        type="button"
+                        disabled={updatingStatus || item.status === st}
+                        onClick={() => handleUpdateStatus(st)}
+                        className={`text-[11px] font-bold px-2.5 py-1 rounded-md transition-all ${
+                          item.status === st 
+                            ? 'bg-secondary text-on-secondary shadow-sm'
+                            : 'bg-surface-container hover:bg-surface-container-high text-on-surface-variant'
+                        }`}
+                      >
+                        {st}
+                      </button>
+                    ))}
+                  </div>
+                </div>
                 
                 <div className="relative pl-6 space-y-6 before:absolute before:left-2 before:top-2 before:bottom-2 before:w-0.5 before:bg-outline-variant/30">
                   {timelineSteps.map((step, idx) => (

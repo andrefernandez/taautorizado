@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { supabase } from '../supabaseClient'
 import { getCases } from '../services/dataService'
 import Sidebar from '../components/Sidebar'
 import BottomNav from '../components/BottomNav'
@@ -59,6 +60,7 @@ export default function RequestList() {
   const [search, setSearch] = useState('')
   const [statusFilter, setStatusFilter] = useState('Todos')
   const [isOffline, setIsOffline] = useState(false)
+  const [updatingId, setUpdatingId] = useState(null)
 
   const fetchCases = async () => {
     try {
@@ -72,6 +74,28 @@ export default function RequestList() {
       setIsOffline(true)
     } finally {
       setLoading(false)
+    }
+  }
+
+  const handleUpdateCaseStatus = async (caseId, newStatus, e) => {
+    e.stopPropagation()
+    try {
+      setUpdatingId(caseId)
+      if (!isOffline) {
+        const { error } = await supabase
+          .from('cases')
+          .update({ status: newStatus })
+          .eq('id', caseId)
+
+        if (error) throw error
+      }
+
+      setCases(prev => prev.map(c => c.id === caseId ? { ...c, status: newStatus } : c))
+    } catch (err) {
+      console.error(err)
+      alert("Erro ao alterar status: " + err.message)
+    } finally {
+      setUpdatingId(null)
     }
   }
 
@@ -233,10 +257,19 @@ export default function RequestList() {
                         <td className="px-6 py-4 text-on-surface-variant">
                           {c.proposed_date ? new Date(c.proposed_date).toLocaleDateString('pt-BR') : 'A agendar'}
                         </td>
-                        <td className="px-6 py-4">
-                          <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold ${getStatusBadge(c.status)}`}>
-                            {c.status}
-                          </span>
+                        <td className="px-6 py-4" onClick={(e) => e.stopPropagation()}>
+                          <select
+                            value={c.status}
+                            disabled={updatingId === c.id}
+                            onChange={(e) => handleUpdateCaseStatus(c.id, e.target.value, e)}
+                            className={`font-bold text-xs rounded-full px-3 py-1.5 border-0 focus:ring-2 focus:ring-secondary cursor-pointer transition-all ${getStatusBadge(c.status)}`}
+                          >
+                            <option value="Em Análise">⏳ Em Análise</option>
+                            <option value="Autorizado">✅ Autorizado</option>
+                            <option value="Pendente Docs">⚠️ Pendente Docs</option>
+                            <option value="Aguardando Orçamento">💬 Aguardando Orçamento</option>
+                            <option value="Negado">❌ Negado</option>
+                          </select>
                         </td>
                         <td className="px-6 py-4 text-right">
                           <Link 
