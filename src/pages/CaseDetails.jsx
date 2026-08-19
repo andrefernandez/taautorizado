@@ -73,7 +73,13 @@ export default function CaseDetails() {
   const [item, setItem] = useState(null)
   const [loading, setLoading] = useState(true)
   const [isOffline, setIsOffline] = useState(false)
-  const [updatingStatus, setUpdatingStatus] = useState(false)
+  const [saving, setSaving] = useState(false)
+  const [saveSuccess, setSaveSuccess] = useState(false)
+
+  // Editable Form States
+  const [status, setStatus] = useState('')
+  const [proposedDate, setProposedDate] = useState('')
+  const [clinicalSummary, setClinicalSummary] = useState('')
 
   useEffect(() => {
     const fetchCaseDetails = async () => {
@@ -81,6 +87,9 @@ export default function CaseDetails() {
         setLoading(true)
         const data = await getCaseById(id)
         setItem(data)
+        setStatus(data.status || 'Em Análise')
+        setProposedDate(data.proposed_date ? data.proposed_date.split('T')[0] : '')
+        setClinicalSummary(data.clinical_summary || '')
         setIsOffline(false)
       } catch (e) {
         console.warn("Utilizando detalhes offline para o caso:", id)
@@ -95,6 +104,9 @@ export default function CaseDetails() {
           budget_items: []
         }
         setItem(offlineData)
+        setStatus(offlineData.status || 'Em Análise')
+        setProposedDate(offlineData.proposed_date ? offlineData.proposed_date.split('T')[0] : '')
+        setClinicalSummary(offlineData.clinical_summary || '')
         setIsOffline(true)
       } finally {
         setLoading(false)
@@ -103,25 +115,43 @@ export default function CaseDetails() {
     fetchCaseDetails()
   }, [id])
 
-  const handleUpdateStatus = async (newStatus) => {
+  const isDirty = item && (
+    status !== (item.status || '') ||
+    proposedDate !== (item.proposed_date ? item.proposed_date.split('T')[0] : '') ||
+    clinicalSummary !== (item.clinical_summary || '')
+  )
+
+  const handleSave = async () => {
+    if (!item) return
     try {
-      setUpdatingStatus(true)
+      setSaving(true)
       if (!isOffline) {
         const { error } = await supabase
           .from('cases')
-          .update({ status: newStatus })
+          .update({
+            status: status,
+            proposed_date: proposedDate || null,
+            clinical_summary: clinicalSummary
+          })
           .eq('id', id)
 
         if (error) throw error
       }
 
-      setItem(prev => ({ ...prev, status: newStatus }))
-      alert(`Status do pedido atualizado para: ${newStatus}!`)
+      setItem(prev => ({
+        ...prev,
+        status: status,
+        proposed_date: proposedDate || null,
+        clinical_summary: clinicalSummary
+      }))
+
+      setSaveSuccess(true)
+      setTimeout(() => setSaveSuccess(false), 4000)
     } catch (e) {
       console.error(e)
-      alert("Erro ao atualizar status: " + e.message)
+      alert("Erro ao salvar alterações: " + e.message)
     } finally {
-      setUpdatingStatus(false)
+      setSaving(false)
     }
   }
 
@@ -162,19 +192,19 @@ export default function CaseDetails() {
     { label: 'Documentos Recebidos', active: true, desc: 'Guia e exames carregados' },
     { 
       label: 'Cotação de OPME', 
-      active: item.status !== 'Aguardando Orçamento', 
-      desc: item.status === 'Aguardando Orçamento' ? 'Pendente pelo distribuidor' : 'Orçamento recebido' 
+      active: status !== 'Aguardando Orçamento', 
+      desc: status === 'Aguardando Orçamento' ? 'Pendente pelo distribuidor' : 'Orçamento recebido' 
     },
     { 
       label: 'Em Análise', 
-      active: ['Em Análise', 'Autorizado', 'Pendente Docs', 'Negado'].includes(item.status), 
-      desc: item.status === 'Pendente Docs' ? 'Pendente documentação' : 'Análise técnica da operadora' 
+      active: ['Em Análise', 'Autorizado', 'Pendente Docs', 'Negado'].includes(status), 
+      desc: status === 'Pendente Docs' ? 'Pendente documentação' : 'Análise técnica da operadora' 
     },
     { 
-      label: item.status === 'Negado' ? 'Negado' : 'Autorizado', 
-      active: ['Autorizado', 'Negado'].includes(item.status),
+      label: status === 'Negado' ? 'Negado' : 'Autorizado', 
+      active: ['Autorizado', 'Negado'].includes(status),
       isEnd: true, 
-      desc: item.status === 'Autorizado' ? 'Procedimento liberado!' : item.status === 'Negado' ? 'Solicitação negada' : 'Aguardando parecer final' 
+      desc: status === 'Autorizado' ? 'Procedimento liberado!' : status === 'Negado' ? 'Solicitação negada' : 'Aguardando parecer final' 
     }
   ]
 
@@ -184,6 +214,13 @@ export default function CaseDetails() {
 
       <main className="flex-1 ml-0 md:ml-64 flex flex-col h-screen overflow-y-auto relative pb-24 md:pb-0">
         
+        {saveSuccess && (
+          <div className="bg-emerald-600 text-white px-4 py-3 text-sm font-bold text-center flex items-center justify-center gap-2 shadow-md sticky top-0 z-50 animate-bounce">
+            <span className="material-symbols-outlined text-lg">check_circle</span>
+            Alterações salvas com sucesso no banco de dados!
+          </div>
+        )}
+
         {isOffline && (
           <div className="bg-amber-100 text-amber-900 px-4 py-2 text-xs font-semibold text-center flex items-center justify-center gap-2 border-b border-amber-200">
             <span className="material-symbols-outlined text-sm">wifi_off</span>
@@ -212,27 +249,45 @@ export default function CaseDetails() {
                 </p>
               </div>
               
-              {/* Interactive Status Selector */}
-              <div className="flex items-center gap-2 self-start sm:self-auto bg-surface-container-lowest p-2 rounded-xl border border-outline-variant/40 shadow-sm">
-                <span className="text-xs font-bold text-on-surface-variant pl-2">Status:</span>
-                <select
-                  value={item.status}
-                  disabled={updatingStatus}
-                  onChange={(e) => handleUpdateStatus(e.target.value)}
-                  className={`font-bold text-xs rounded-lg px-3 py-2 border-0 focus:ring-2 focus:ring-secondary cursor-pointer transition-all ${
-                    item.status === 'Autorizado' ? 'bg-emerald-100 text-emerald-900 border border-emerald-300' :
-                    item.status === 'Em Análise' ? 'bg-blue-100 text-blue-900 border border-blue-300' :
-                    item.status === 'Pendente Docs' ? 'bg-amber-100 text-amber-900 border border-amber-300' :
-                    item.status === 'Negado' ? 'bg-rose-100 text-rose-900 border border-rose-300' :
-                    'bg-purple-100 text-purple-900 border border-purple-300'
+              {/* Status Selector + Salvar Button in Header */}
+              <div className="flex flex-wrap items-center gap-3 self-start sm:self-auto">
+                <div className="flex items-center gap-2 bg-surface-container-lowest p-1.5 rounded-xl border border-outline-variant/40 shadow-sm">
+                  <span className="text-xs font-bold text-on-surface-variant pl-2">Status:</span>
+                  <select
+                    value={status}
+                    onChange={(e) => setStatus(e.target.value)}
+                    className={`font-bold text-xs rounded-lg px-3 py-2 border-0 focus:ring-2 focus:ring-secondary cursor-pointer transition-all ${
+                      status === 'Autorizado' ? 'bg-emerald-100 text-emerald-900 border border-emerald-300' :
+                      status === 'Em Análise' ? 'bg-blue-100 text-blue-900 border border-blue-300' :
+                      status === 'Pendente Docs' ? 'bg-amber-100 text-amber-900 border border-amber-300' :
+                      status === 'Negado' ? 'bg-rose-100 text-rose-900 border border-rose-300' :
+                      'bg-purple-100 text-purple-900 border border-purple-300'
+                    }`}
+                  >
+                    <option value="Em Análise">⏳ Em Análise</option>
+                    <option value="Autorizado">✅ Autorizado</option>
+                    <option value="Pendente Docs">⚠️ Pendente Docs</option>
+                    <option value="Aguardando Orçamento">💬 Aguardando Orçamento</option>
+                    <option value="Negado">❌ Negado</option>
+                  </select>
+                </div>
+
+                {/* Prominent Save Button */}
+                <button
+                  type="button"
+                  onClick={handleSave}
+                  disabled={saving || !isDirty}
+                  className={`px-5 py-2.5 rounded-xl font-label-md text-label-md font-bold flex items-center gap-2 transition-all shadow-sm ${
+                    isDirty 
+                      ? 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-md scale-105 animate-pulse' 
+                      : 'bg-surface-container text-on-surface-variant/50 cursor-not-allowed opacity-60'
                   }`}
                 >
-                  <option value="Em Análise">⏳ Em Análise</option>
-                  <option value="Autorizado">✅ Autorizado</option>
-                  <option value="Pendente Docs">⚠️ Pendente Docs</option>
-                  <option value="Aguardando Orçamento">💬 Aguardando Orçamento</option>
-                  <option value="Negado">❌ Negado</option>
-                </select>
+                  <span className="material-symbols-outlined text-[18px]">
+                    {saving ? 'sync' : 'save'}
+                  </span>
+                  <span>{saving ? 'Salvando...' : isDirty ? 'Salvar Alterações' : 'Salvo'}</span>
+                </button>
               </div>
             </div>
           </div>
@@ -251,15 +306,14 @@ export default function CaseDetails() {
                   
                   {/* Quick Change Chips */}
                   <div className="flex flex-wrap gap-1.5 items-center">
-                    <span className="text-[11px] text-on-surface-variant font-medium mr-1">Alterar para:</span>
+                    <span className="text-[11px] text-on-surface-variant font-medium mr-1">Selecionar:</span>
                     {['Em Análise', 'Autorizado', 'Pendente Docs', 'Negado'].map(st => (
                       <button
                         key={st}
                         type="button"
-                        disabled={updatingStatus || item.status === st}
-                        onClick={() => handleUpdateStatus(st)}
+                        onClick={() => setStatus(st)}
                         className={`text-[11px] font-bold px-2.5 py-1 rounded-md transition-all ${
-                          item.status === st 
+                          status === st 
                             ? 'bg-secondary text-on-secondary shadow-sm'
                             : 'bg-surface-container hover:bg-surface-container-high text-on-surface-variant'
                         }`}
@@ -287,15 +341,23 @@ export default function CaseDetails() {
                 </div>
               </div>
 
-              {/* Summary Card */}
+              {/* Summary & Edit Card */}
               <div className="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/30 shadow-level-1 flex flex-col gap-4">
-                <h3 className="font-title-lg text-title-lg text-on-background font-bold border-b border-outline-variant/30 pb-2">
-                  Resumo Clínico
-                </h3>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-body-md">
+                <div className="flex justify-between items-center border-b border-outline-variant/30 pb-2">
+                  <h3 className="font-title-lg text-title-lg text-on-background font-bold">
+                    Resumo Clínico & Informações do Pedido
+                  </h3>
+                  {isDirty && (
+                    <span className="text-xs font-bold text-amber-700 bg-amber-100 px-2.5 py-1 rounded-md border border-amber-300">
+                      Alterações não salvas
+                    </span>
+                  )}
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 text-body-md">
                   <div>
                     <span className="block text-xs text-on-surface-variant font-medium">CPF do Paciente</span>
-                    <span className="font-semibold text-on-background">{item.patients?.cpf}</span>
+                    <span className="font-semibold text-on-background">{item.patients?.cpf || '000.000.000-00'}</span>
                   </div>
                   <div>
                     <span className="block text-xs text-on-surface-variant font-medium">Idade</span>
@@ -303,22 +365,46 @@ export default function CaseDetails() {
                   </div>
                   <div>
                     <span className="block text-xs text-on-surface-variant font-medium">Operadora / Convênio</span>
-                    <span className="font-semibold text-on-background">{item.patients?.insurance}</span>
+                    <span className="font-semibold text-on-background">{item.patients?.insurance || 'Bradesco'}</span>
                   </div>
                   <div>
-                    <span className="block text-xs text-on-surface-variant font-medium">Data Proposta</span>
-                    <span className="font-semibold text-on-background">
-                      {item.proposed_date ? new Date(item.proposed_date).toLocaleDateString('pt-BR') : 'A agendar'}
-                    </span>
+                    <label className="block text-xs text-on-surface-variant font-medium mb-1">Data Proposta da Cirurgia</label>
+                    <input
+                      type="date"
+                      value={proposedDate}
+                      onChange={(e) => setProposedDate(e.target.value)}
+                      className="w-full bg-surface-container-low border border-outline-variant/50 rounded-lg px-2.5 py-1 text-xs font-semibold text-on-background focus:ring-1 focus:ring-secondary"
+                    />
                   </div>
                 </div>
 
                 <div className="mt-4 pt-4 border-t border-outline-variant/30">
-                  <span className="block text-xs text-on-surface-variant font-medium mb-1">Diagnóstico e Detalhes Clínicos</span>
-                  <p className="text-body-md text-on-surface-variant leading-relaxed">
-                    {item.clinical_summary || 'Nenhum detalhe clínico informado.'}
-                  </p>
+                  <label className="block text-xs text-on-surface-variant font-medium mb-1.5">
+                    Diagnóstico e Detalhes Clínicos
+                  </label>
+                  <textarea
+                    rows={3}
+                    value={clinicalSummary}
+                    onChange={(e) => setClinicalSummary(e.target.value)}
+                    placeholder="Descreva a indicação cirúrgica, laudos e justificativa..."
+                    className="w-full bg-surface-container-low border border-outline-variant/50 rounded-xl p-3 text-body-md text-on-background focus:ring-2 focus:ring-secondary leading-relaxed resize-y"
+                  />
                 </div>
+
+                {/* Save button inside card */}
+                {isDirty && (
+                  <div className="pt-3 border-t border-outline-variant/30 flex justify-end">
+                    <button
+                      type="button"
+                      onClick={handleSave}
+                      disabled={saving}
+                      className="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2 rounded-xl text-xs font-bold flex items-center gap-2 shadow-md transition-all"
+                    >
+                      <span className="material-symbols-outlined text-[16px]">{saving ? 'sync' : 'save'}</span>
+                      <span>{saving ? 'Salvando...' : 'Salvar Alterações'}</span>
+                    </button>
+                  </div>
+                )}
               </div>
 
               {/* Budget Details (if supplier has proposed one) */}

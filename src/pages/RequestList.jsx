@@ -257,19 +257,10 @@ export default function RequestList() {
                         <td className="px-6 py-4 text-on-surface-variant">
                           {c.proposed_date ? new Date(c.proposed_date).toLocaleDateString('pt-BR') : 'A agendar'}
                         </td>
-                        <td className="px-6 py-4" onClick={(e) => e.stopPropagation()}>
-                          <select
-                            value={c.status}
-                            disabled={updatingId === c.id}
-                            onChange={(e) => handleUpdateCaseStatus(c.id, e.target.value, e)}
-                            className={`font-bold text-xs rounded-full px-3 py-1.5 border-0 focus:ring-2 focus:ring-secondary cursor-pointer transition-all ${getStatusBadge(c.status)}`}
-                          >
-                            <option value="Em Análise">⏳ Em Análise</option>
-                            <option value="Autorizado">✅ Autorizado</option>
-                            <option value="Pendente Docs">⚠️ Pendente Docs</option>
-                            <option value="Aguardando Orçamento">💬 Aguardando Orçamento</option>
-                            <option value="Negado">❌ Negado</option>
-                          </select>
+                        <td className="px-6 py-4">
+                          <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold ${getStatusBadge(c.status)}`}>
+                            {c.status}
+                          </span>
                         </td>
                         <td className="px-6 py-4 text-right">
                           <Link 

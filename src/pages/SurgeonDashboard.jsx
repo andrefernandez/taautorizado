@@ -309,24 +309,10 @@ export default function SurgeonDashboard() {
                         <td className="px-6 py-4">{c.procedures?.description || 'Não especificado'}</td>
                         <td className="px-6 py-4 text-on-surface-variant">{c.hospitals?.name || 'Não especificado'}</td>
                         <td className="px-6 py-4">
-                          <select
-                            value={c.status}
-                            disabled={updatingId === c.id}
-                            onChange={(e) => handleUpdateCaseStatus(c.id, e.target.value)}
-                            className={`font-bold text-xs rounded-full px-3 py-1.5 border-0 focus:ring-2 focus:ring-secondary cursor-pointer transition-all ${
-                              c.status === 'Autorizado' ? 'bg-emerald-100 text-emerald-900 border border-emerald-300' :
-                              c.status === 'Em Análise' ? 'bg-blue-100 text-blue-900 border border-blue-300' :
-                              c.status === 'Pendente Docs' ? 'bg-amber-100 text-amber-900 border border-amber-300' :
-                              c.status === 'Negado' ? 'bg-rose-100 text-rose-900 border border-rose-300' :
-                              'bg-purple-100 text-purple-900 border border-purple-300'
-                            }`}
-                          >
-                            <option value="Em Análise">⏳ Em Análise</option>
-                            <option value="Autorizado">✅ Autorizado</option>
-                            <option value="Pendente Docs">⚠️ Pendente Docs</option>
-                            <option value="Aguardando Orçamento">💬 Aguardando Orçamento</option>
-                            <option value="Negado">❌ Negado</option>
-                          </select>
+                          <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold ${getStatusStyle(c.status)}`}>
+                            <span className={`w-1.5 h-1.5 rounded-full ${getStatusDot(c.status)}`}></span>
+                            {c.status}
+                          </span>
                         </td>
                         <td className="px-6 py-4 text-on-surface-variant">
                           {c.proposed_date ? new Date(c.proposed_date).toLocaleDateString('pt-BR') : 'A agendar'}
