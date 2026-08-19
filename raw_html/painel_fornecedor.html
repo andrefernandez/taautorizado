@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dashboard Comercial - Tá Autorizado</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-background": "#0b1c30",
+                        "on-surface-variant": "#45464d",
+                        "surface-container-highest": "#d3e4fe",
+                        "on-surface": "#0b1c30",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed-dim": "#7bd0ff",
+                        "on-secondary": "#ffffff",
+                        "outline-variant": "#c6c6cd",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-secondary-fixed": "#001e2c",
+                        "surface-container-high": "#dce9ff",
+                        "primary-fixed": "#dae2fd",
+                        "on-tertiary-container": "#818486",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed-variant": "#004c69",
+                        "surface-container": "#e5eeff",
+                        "on-primary-container": "#7c839b",
+                        "primary-container": "#131b2e",
+                        "tertiary-fixed": "#e0e3e5",
+                        "inverse-primary": "#bec6e0",
+                        "secondary-container": "#40c2fd",
+                        "on-error": "#ffffff",
+                        "surface-tint": "#565e74",
+                        "on-secondary-container": "#004d6a",
+                        "on-tertiary-fixed": "#191c1e",
+                        "on-error-container": "#93000a",
+                        "surface-container-low": "#eff4ff",
+                        "on-tertiary-fixed-variant": "#444749",
+                        "surface": "#f8f9ff",
+                        "secondary": "#00668a",
+                        "tertiary-fixed-dim": "#c4c7c9",
+                        "background": "#f8f9ff",
+                        "on-primary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "outline": "#76777d",
+                        "tertiary": "#000000",
+                        "primary": "#000000",
+                        "surface-variant": "#d3e4fe",
+                        "on-primary-fixed": "#131b2e",
+                        "secondary-fixed": "#c4e7ff",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "surface-dim": "#cbdbf5",
+                        "tertiary-container": "#191c1e",
+                        "primary-fixed-dim": "#bec6e0",
+                        "surface-bright": "#f8f9ff",
+                        "inverse-surface": "#213145",
+                        "error-container": "#ffdad6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-sm": "8px",
+                        "stack-md": "16px",
+                        "margin-mobile": "16px",
+                        "container-max": "1440px",
+                        "margin-desktop": "40px",
+                        "gutter": "24px",
+                        "stack-lg": "32px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Inter"],
+                        "title-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "code-md": ["monospace"],
+                        "display-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "label-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "title-lg": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "code-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.filled {
+            font-variation-settings: 'FILL' 1;
+        }
+        
+        /* Subtle scrollbar for data tables */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background-color: #c6c6cd;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col md:flex-row antialiased">
+<!-- Top Navigation (Mobile) -->
+<header class="md:hidden bg-surface-container-lowest border-b border-outline-variant flex justify-between items-center h-16 px-margin-mobile w-full shadow-sm z-50 fixed top-0">
+<div class="flex items-center gap-3">
+<img alt="Tá Autorizado Logo" class="h-8 w-auto" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAEENNpgEmsG8JWDf9rcPWNFLjnlzuQu22skigrAYe9QoMpPeBNjj7-E1wHc_YtJ3rLyd0MtZRqLY40LGEEVtOv1zBzYYcGOMWKgBdxZ0tiQg0ZtAO4AZec1Gu9NOw0DT9LZ7B-60IeYQxK6Hem80NEPbBoSkVLc1NK7AND3hkzzRIkEw53gGDadaVg3SSYyZnZWSUW2GFomeqpedOHAmxqxYo660-n5mf00YePiM0CT9mSw8OtQmwA"/>
+<span class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-on-background">Tá Autorizado</span>
+</div>
+<div class="flex items-center gap-4 text-secondary">
+<span class="material-symbols-outlined text-[24px]">notifications</span>
+<button class="material-symbols-outlined text-[24px]" id="mobile-menu-btn">menu</button>
+</div>
+</header>
+<!-- Side Navigation (Desktop) -->
+<aside class="hidden md:flex bg-surface-container-low border-r border-outline-variant fixed left-0 top-0 h-screen w-64 flex-col py-stack-lg px-stack-md z-40">
+<div class="flex items-center gap-3 mb-10 px-2">
+<img alt="Company Logo" class="h-10 w-10 object-contain bg-white rounded p-1" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAEENNpgEmsG8JWDf9rcPWNFLjnlzuQu22skigrAYe9QoMpPeBNjj7-E1wHc_YtJ3rLyd0MtZRqLY40LGEEVtOv1zBzYYcGOMWKgBdxZ0tiQg0ZtAO4AZec1Gu9NOw0DT9LZ7B-60IeYQxK6Hem80NEPbBoSkVLc1NK7AND3hkzzRIkEw53gGDadaVg3SSYyZnZWSUW2GFomeqpedOHAmxqxYo660-n5mf00YePiM0CT9mSw8OtQmwA"/>
+<div>
+<h1 class="font-headline-lg text-[20px] font-black text-on-background leading-tight">Tá Autorizado</h1>
+<p class="font-label-md text-label-md text-on-surface-variant">Provider Portal</p>
+</div>
+</div>
+<button class="w-full bg-primary-container text-on-primary text-white font-label-md text-label-md font-semibold py-3 px-4 rounded-lg flex justify-center items-center gap-2 mb-8 hover:bg-on-background transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[18px]">add</span>
+            Novo Orçamento
+        </button>
+<nav class="flex-1 space-y-2">
+<a class="bg-secondary-container text-on-secondary-container rounded-lg font-semibold flex items-center gap-3 px-4 py-3 transition-colors" href="#">
+<span class="material-symbols-outlined filled text-[20px]">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard Comercial</span>
+</a>
+<a class="text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest flex items-center gap-3 px-4 py-3 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">request_quote</span>
+<span class="font-label-md text-label-md">Orçamentos</span>
+</a>
+<a class="text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest flex items-center gap-3 px-4 py-3 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">medical_services</span>
+<span class="font-label-md text-label-md">Cirurgias</span>
+</a>
+<a class="text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest flex items-center gap-3 px-4 py-3 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">account_balance_wallet</span>
+<span class="font-label-md text-label-md">Faturamento</span>
+</a>
+<a class="text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest flex items-center gap-3 px-4 py-3 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">analytics</span>
+<span class="font-label-md text-label-md">Relatórios</span>
+</a>
+</nav>
+<div class="mt-auto space-y-2 pt-6 border-t border-outline-variant/30">
+<a class="text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest flex items-center gap-3 px-4 py-3 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+<span class="font-label-md text-label-md">Configurações</span>
+</a>
+<a class="text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest flex items-center gap-3 px-4 py-3 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">logout</span>
+<span class="font-label-md text-label-md">Sair</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 md:ml-64 pt-20 md:pt-0 min-h-screen flex flex-col">
+<!-- Top App Bar (Desktop) -->
+<header class="hidden md:flex bg-surface-container-lowest border-b border-outline-variant justify-between items-center h-16 px-margin-desktop w-full max-w-container-max mx-auto shadow-sm sticky top-0 z-30">
+<div class="flex items-center text-on-surface-variant">
+<span class="material-symbols-outlined mr-2">search</span>
+<input class="bg-transparent border-none focus:ring-0 font-body-md text-body-md w-96 placeholder:text-outline" placeholder="Buscar orçamentos, médicos, pacientes..." type="text"/>
+</div>
+<div class="flex items-center gap-6">
+<button class="text-secondary hover:bg-surface-container-low p-2 rounded-full transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-1 right-1 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<div class="flex items-center gap-3 border-l border-outline-variant pl-6">
+<div class="text-right">
+<p class="font-label-md text-label-md font-semibold text-on-background">Dr. Carlos Mendes</p>
+<p class="font-label-md text-[10px] text-on-surface-variant">Diretor Comercial</p>
+</div>
+<img class="w-9 h-9 rounded-full object-cover border border-outline-variant" data-alt="A professional headshot of a middle-aged male doctor with short dark hair, wearing a white coat over a blue shirt, smiling warmly against a bright, modern clinic background with soft lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-eM003Hegi_-aR73ICjOt5MA3oHDKJr2CXUsLo5GGIm3hN46dzPNpi1uxw4sLsklai_8yj2bjzawiZHiHoKez6U4kmHITT-HRM5fX0JH4EzpJny8b7wpVof_dvDzmkibxMpQCXS-1vlx9AqOofk-VjPcASK3OsIo1vpM9FnPST5854ti0s4ek7dLY7rOlAoSVyLbHTsXa8UTN4mGBg5fhSOcBZZSmcIW-nAz6nCQKtoLDzl8AtoCi"/>
+</div>
+</div>
+</header>
+<!-- Content Area -->
+<div class="flex-1 p-margin-mobile md:p-margin-desktop max-w-container-max mx-auto w-full space-y-stack-lg">
+<!-- Page Header -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
+<div>
+<h2 class="font-headline-md text-headline-md text-on-background mb-1">Visão Geral Comercial</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Resumo operacional e financeiro atualizado hoje às 08:30</p>
+</div>
+<div class="flex gap-3">
+<button class="bg-surface-container-lowest border border-outline-variant text-on-background font-label-md text-label-md py-2 px-4 rounded flex items-center gap-2 hover:bg-surface-container-low transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>
+                        Este Mês
+                        <span class="material-symbols-outlined text-[16px]">expand_more</span>
+</button>
+<button class="bg-surface-container-lowest border border-outline-variant text-on-background font-label-md text-label-md py-2 px-4 rounded flex items-center gap-2 hover:bg-surface-container-low transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[18px]">download</span>
+                        Exportar
+                    </button>
+</div>
+</div>
+<!-- Operational Metrics Grid -->
+<div class="grid grid-cols-2 md:grid-cols-5 gap-stack-md">
+<!-- Metric 1 -->
+<div class="bg-surface-container-lowest p-5 rounded-lg shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border border-surface-container-high flex flex-col justify-between h-32">
+<div class="flex justify-between items-start">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Orçamentos Recebidos</span>
+<span class="material-symbols-outlined text-secondary bg-surface-container p-1 rounded">inbox</span>
+</div>
+<div>
+<span class="font-display-lg text-[32px] font-bold text-on-background">142</span>
+<span class="font-label-md text-[11px] text-secondary ml-2 bg-surface-container px-1.5 py-0.5 rounded">+12% vs mês ant.</span>
+</div>
+</div>
+<!-- Metric 2 -->
+<div class="bg-surface-container-lowest p-5 rounded-lg shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border border-surface-container-high flex flex-col justify-between h-32">
+<div class="flex justify-between items-start">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Aguardando Resposta</span>
+<span class="material-symbols-outlined text-[#d97706] bg-[#fef3c7] p-1 rounded">hourglass_empty</span>
+</div>
+<div>
+<span class="font-display-lg text-[32px] font-bold text-on-background">38</span>
+<span class="font-label-md text-[11px] text-on-surface-variant ml-2">Prazo médio: 2.4d</span>
+</div>
+</div>
+<!-- Metric 3 -->
+<div class="bg-surface-container-lowest p-5 rounded-lg shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border border-surface-container-high flex flex-col justify-between h-32">
+<div class="flex justify-between items-start">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Em Negociação</span>
+<span class="material-symbols-outlined text-secondary bg-surface-container p-1 rounded">handshake</span>
+</div>
+<div>
+<span class="font-display-lg text-[32px] font-bold text-on-background">24</span>
+<span class="font-label-md text-[11px] text-on-surface-variant ml-2">R$ 480k pot.</span>
+</div>
+</div>
+<!-- Metric 4 -->
+<div class="bg-surface-container-lowest p-5 rounded-lg shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border border-surface-container-high flex flex-col justify-between h-32">
+<div class="flex justify-between items-start">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Cirurgias Agendadas</span>
+<span class="material-symbols-outlined text-[#059669] bg-[#d1fae5] p-1 rounded">event_available</span>
+</div>
+<div>
+<span class="font-display-lg text-[32px] font-bold text-on-background">86</span>
+<span class="font-label-md text-[11px] text-[#059669] ml-2 bg-[#d1fae5] px-1.5 py-0.5 rounded">60% conv.</span>
+</div>
+</div>
+<!-- Metric 5 -->
+<div class="bg-surface-container-lowest p-5 rounded-lg shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border border-surface-container-high flex flex-col justify-between h-32 col-span-2 md:col-span-1">
+<div class="flex justify-between items-start">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Faturamento Pend.</span>
+<span class="material-symbols-outlined text-error bg-error-container p-1 rounded">payments</span>
+</div>
+<div>
+<span class="font-headline-md text-[24px] font-bold text-on-background">R$ 1.2M</span>
+<span class="font-label-md text-[11px] text-error ml-2">15 guias atrasadas</span>
+</div>
+</div>
+</div>
+<!-- Bento Layout for Charts and Lists -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-stack-lg">
+<!-- Main List: Active Cases / Budgets (Takes 2 columns) -->
+<div class="lg:col-span-2 bg-surface-container-lowest rounded-xl shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border border-surface-container-high overflow-hidden flex flex-col">
+<div class="p-6 border-b border-outline-variant/30 flex justify-between items-center bg-white">
+<div>
+<h3 class="font-title-lg text-title-lg text-on-background">Pipeline de Orçamentos</h3>
+<p class="font-body-md text-[13px] text-on-surface-variant mt-1">Casos ativos ordenados por prioridade comercial</p>
+</div>
+<div class="flex gap-2">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-2 text-outline-variant text-[18px]">search</span>
+<input class="pl-9 pr-4 py-1.5 text-body-md border border-outline-variant rounded bg-surface focus:border-secondary focus:ring-1 focus:ring-secondary transition-all w-48" placeholder="Buscar paciente..." type="text"/>
+</div>
+<button class="p-1.5 border border-outline-variant rounded text-on-surface-variant hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[20px]">filter_list</span>
+</button>
+</div>
+</div>
+<div class="overflow-x-auto custom-scrollbar flex-1 bg-white">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface border-b border-outline-variant/50">
+<th class="p-4 font-label-md text-label-md text-on-surface-variant font-medium whitespace-nowrap">ID / Paciente</th>
+<th class="p-4 font-label-md text-label-md text-on-surface-variant font-medium whitespace-nowrap">Médico / Hospital</th>
+<th class="p-4 font-label-md text-label-md text-on-surface-variant font-medium whitespace-nowrap">Procedimento</th>
+<th class="p-4 font-label-md text-label-md text-on-surface-variant font-medium whitespace-nowrap">Status Comercial</th>
+<th class="p-4 font-label-md text-label-md text-on-surface-variant font-medium text-right whitespace-nowrap">Data / Ação</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/20">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="p-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-primary-container text-white flex items-center justify-center font-label-md font-bold text-[10px]">#402</div>
+<div>
+<p class="font-body-md text-body-md font-medium text-on-background">Mariana L. Costa</p>
+<p class="font-label-md text-[11px] text-on-surface-variant">Unimed - Ouro</p>
+</div>
+</div>
+</td>
+<td class="p-4">
+<p class="font-body-md text-[13px] text-on-background">Dr. Roberto Almeida</p>
+<p class="font-label-md text-[11px] text-on-surface-variant">Hosp. Sírio-Libanês</p>
+</td>
+<td class="p-4">
+<p class="font-body-md text-[13px] text-on-background truncate max-w-[150px]" title="Artroplastia Total de Quadril">Artroplastia Total Quadril</p>
+<p class="font-label-md text-[11px] text-on-surface-variant">OPME Inclusa</p>
+</td>
+<td class="p-4">
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-[#fef3c7] text-[#92400e] font-label-md text-[11px] font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-[#d97706]"></span> Aguardando Auditoria
+                                        </span>
+</td>
+<td class="p-4 text-right">
+<p class="font-body-md text-[13px] text-on-background">Prev: 12/Nov</p>
+<button class="text-secondary font-label-md text-[11px] font-semibold mt-1 hover:underline opacity-0 group-hover:opacity-100 transition-opacity">Detalhes</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="p-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-variant text-on-background flex items-center justify-center font-label-md font-bold text-[10px]">#398</div>
+<div>
+<p class="font-body-md text-body-md font-medium text-on-background">João P. Nogueira</p>
+<p class="font-label-md text-[11px] text-on-surface-variant">Bradesco Saúde</p>
+</div>
+</div>
+</td>
+<td class="p-4">
+<p class="font-body-md text-[13px] text-on-background">Dra. Silvia Torres</p>
+<p class="font-label-md text-[11px] text-on-surface-variant">Hosp. Albert Einstein</p>
+</td>
+<td class="p-4">
+<p class="font-body-md text-[13px] text-on-background truncate max-w-[150px]">Revisão de Coluna Cervical</p>
+<p class="font-label-md text-[11px] text-on-surface-variant">Alta Complexidade</p>
+</td>
+<td class="p-4">
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-secondary-container/30 text-on-secondary-container font-label-md text-[11px] font-semibold border border-secondary-container/50">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> Em Negociação
+                                        </span>
+</td>
+<td class="p-4 text-right">
+<p class="font-body-md text-[13px] text-on-background">Prev: 15/Nov</p>
+<button class="text-secondary font-label-md text-[11px] font-semibold mt-1 hover:underline opacity-0 group-hover:opacity-100 transition-opacity">Detalhes</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="p-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-variant text-on-background flex items-center justify-center font-label-md font-bold text-[10px]">#405</div>
+<div>
+<p class="font-body-md text-body-md font-medium text-on-background">Amanda F. Silva</p>
+<p class="font-label-md text-[11px] text-on-surface-variant">SulAmérica - Exec.</p>
+</div>
+</div>
+</td>
+<td class="p-4">
+<p class="font-body-md text-[13px] text-on-background">Dr. Carlos Mendes</p>
+<p class="font-label-md text-[11px] text-on-surface-variant">Hosp. Oswaldo Cruz</p>
+</td>
+<td class="p-4">
+<p class="font-body-md text-[13px] text-on-background truncate max-w-[150px]">Colecistectomia Videolap.</p>
+<p class="font-label-md text-[11px] text-on-surface-variant">Baixa Complexidade</p>
+</td>
+<td class="p-4">
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-[#d1fae5] text-[#065f46] font-label-md text-[11px] font-semibold">
+<span class="material-symbols-outlined text-[12px]">check_circle</span> Aprovado
+                                        </span>
+</td>
+<td class="p-4 text-right">
+<p class="font-body-md text-[13px] font-semibold text-[#059669]">08/Nov (Confirmado)</p>
+<button class="text-secondary font-label-md text-[11px] font-semibold mt-1 hover:underline opacity-0 group-hover:opacity-100 transition-opacity">Faturar</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="p-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-error-container text-on-error-container flex items-center justify-center font-label-md font-bold text-[10px]">#390</div>
+<div>
+<p class="font-body-md text-body-md font-medium text-on-background">Fernando M. Souza</p>
+<p class="font-label-md text-[11px] text-on-surface-variant">Amil - 400</p>
+</div>
+</div>
+</td>
+<td class="p-4">
+<p class="font-body-md text-[13px] text-on-background">Dra. Lucia Lima</p>
+<p class="font-label-md text-[11px] text-on-surface-variant">Hosp. São Luiz</p>
+</td>
+<td class="p-4">
+<p class="font-body-md text-[13px] text-on-background truncate max-w-[150px]">Hérnia Inguinal Bilateral</p>
+<p class="font-label-md text-[11px] text-on-surface-variant">OPME Glosa</p>
+</td>
+<td class="p-4">
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-[#fee2e2] text-[#991b1b] font-label-md text-[11px] font-semibold border border-[#fca5a5]">
+<span class="material-symbols-outlined text-[12px]">error</span> Glosa Parcial
+                                        </span>
+</td>
+<td class="p-4 text-right">
+<p class="font-body-md text-[13px] text-error font-medium">Atrasado (3d)</p>
+<button class="text-secondary font-label-md text-[11px] font-semibold mt-1 hover:underline opacity-0 group-hover:opacity-100 transition-opacity">Resolver</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-4 border-t border-outline-variant/30 bg-surface flex justify-between items-center">
+<span class="font-label-md text-[11px] text-on-surface-variant">Mostrando 4 de 142 orçamentos ativos</span>
+<div class="flex gap-1">
+<button class="w-7 h-7 rounded border border-outline-variant flex items-center justify-center text-outline hover:bg-surface-container-low disabled:opacity-50"><span class="material-symbols-outlined text-[16px]">chevron_left</span></button>
+<button class="w-7 h-7 rounded bg-secondary text-white flex items-center justify-center font-label-md text-[11px]">1</button>
+<button class="w-7 h-7 rounded border border-outline-variant flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low font-label-md text-[11px]">2</button>
+<button class="w-7 h-7 rounded border border-outline-variant flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low font-label-md text-[11px]">3</button>
+<button class="w-7 h-7 rounded border border-outline-variant flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low"><span class="material-symbols-outlined text-[16px]">chevron_right</span></button>
+</div>
+</div>
+</div>
+<!-- Secondary Panel: Actions & Summary (Takes 1 column) -->
+<div class="flex flex-col gap-stack-md">
+<!-- Conversion Funnel Chart Card (Placeholder) -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border border-surface-container-high">
+<h3 class="font-title-lg text-[16px] text-on-background mb-4">Funil de Conversão (Novembro)</h3>
+<div class="space-y-4">
+<!-- Funnel Step 1 -->
+<div>
+<div class="flex justify-between font-label-md text-[12px] mb-1">
+<span class="text-on-surface-variant">Recebidos</span>
+<span class="font-semibold text-on-background">142</span>
+</div>
+<div class="h-2 w-full bg-surface rounded-full overflow-hidden">
+<div class="h-full bg-secondary-fixed-dim w-full"></div>
+</div>
+</div>
+<!-- Funnel Step 2 -->
+<div>
+<div class="flex justify-between font-label-md text-[12px] mb-1">
+<span class="text-on-surface-variant">Aprovados Pela Auditoria</span>
+<span class="font-semibold text-on-background">110</span>
+</div>
+<div class="h-2 w-full bg-surface rounded-full overflow-hidden">
+<div class="h-full bg-secondary w-[77%]"></div>
+</div>
+</div>
+<!-- Funnel Step 3 -->
+<div>
+<div class="flex justify-between font-label-md text-[12px] mb-1">
+<span class="text-on-surface-variant">Agendados</span>
+<span class="font-semibold text-on-background">86</span>
+</div>
+<div class="h-2 w-full bg-surface rounded-full overflow-hidden">
+<div class="h-full bg-primary-container w-[60%]"></div>
+</div>
+</div>
+</div>
+<div class="mt-5 pt-4 border-t border-outline-variant/30 flex justify-between items-center">
+<span class="font-label-md text-[11px] text-on-surface-variant">Taxa de Conversão Final</span>
+<span class="font-headline-md text-[18px] font-bold text-[#059669]">60.5%</span>
+</div>
+</div>
+<!-- Quick Actions / Alerts -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border border-surface-container-high flex-1">
+<h3 class="font-title-lg text-[16px] text-on-background mb-4">Atenção Requerida</h3>
+<ul class="space-y-3">
+<li class="p-3 border border-[#fca5a5] bg-[#fef2f2] rounded flex gap-3 items-start">
+<span class="material-symbols-outlined text-error text-[20px] mt-0.5">error_outline</span>
+<div>
+<p class="font-label-md text-[13px] font-semibold text-[#991b1b]">3 Glosas de OPME pendentes</p>
+<p class="font-label-md text-[11px] text-error mt-0.5">Prazo de recurso vence em 24h (Bradesco Saúde).</p>
+<button class="mt-2 text-[#991b1b] font-label-md text-[11px] font-bold underline">Revisar Agora</button>
+</div>
+</li>
+<li class="p-3 border border-[#fde68a] bg-[#fffbeb] rounded flex gap-3 items-start">
+<span class="material-symbols-outlined text-[#d97706] text-[20px] mt-0.5">warning_amber</span>
+<div>
+<p class="font-label-md text-[13px] font-semibold text-[#b45309]">12 Orçamentos parados &gt; 5 dias</p>
+<p class="font-label-md text-[11px] text-[#d97706] mt-0.5">Auditoria médica da Unimed solicitou informações complementares.</p>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</main>
+<script>
+        // Simple mobile menu toggle
+        document.getElementById('mobile-menu-btn')?.addEventListener('click', function() {
+            const sidebar = document.querySelector('aside');
+            if (sidebar.classList.contains('hidden')) {
+                sidebar.classList.remove('hidden');
+                sidebar.classList.add('flex', 'fixed', 'inset-0', 'w-full', 'bg-white', 'z-50');
+            } else {
+                sidebar.classList.add('hidden');
+                sidebar.classList.remove('flex', 'fixed', 'inset-0', 'w-full', 'bg-white', 'z-50');
+            }
+        });
+    </script>
+</body></html>

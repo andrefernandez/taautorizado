@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+
+<html class="antialiased" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Novo Pedido Médico - Tá Autorizado</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL,GRAD,opsz@200,0,0,24&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-background": "#0b1c30",
+                        "on-surface-variant": "#45464d",
+                        "surface-container-highest": "#d3e4fe",
+                        "on-surface": "#0b1c30",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed-dim": "#7bd0ff",
+                        "on-secondary": "#ffffff",
+                        "outline-variant": "#c6c6cd",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-secondary-fixed": "#001e2c",
+                        "surface-container-high": "#dce9ff",
+                        "primary-fixed": "#dae2fd",
+                        "on-tertiary-container": "#818486",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed-variant": "#004c69",
+                        "surface-container": "#e5eeff",
+                        "on-primary-container": "#7c839b",
+                        "primary-container": "#131b2e",
+                        "tertiary-fixed": "#e0e3e5",
+                        "inverse-primary": "#bec6e0",
+                        "secondary-container": "#40c2fd",
+                        "on-error": "#ffffff",
+                        "surface-tint": "#565e74",
+                        "on-secondary-container": "#004d6a",
+                        "on-tertiary-fixed": "#191c1e",
+                        "on-error-container": "#93000a",
+                        "surface-container-low": "#eff4ff",
+                        "on-tertiary-fixed-variant": "#444749",
+                        "surface": "#f8f9ff",
+                        "secondary": "#00668a",
+                        "tertiary-fixed-dim": "#c4c7c9",
+                        "background": "#f8f9ff",
+                        "on-primary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "outline": "#76777d",
+                        "tertiary": "#000000",
+                        "primary": "#000000",
+                        "surface-variant": "#d3e4fe",
+                        "on-primary-fixed": "#131b2e",
+                        "secondary-fixed": "#c4e7ff",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "surface-dim": "#cbdbf5",
+                        "tertiary-container": "#191c1e",
+                        "primary-fixed-dim": "#bec6e0",
+                        "surface-bright": "#f8f9ff",
+                        "inverse-surface": "#213145",
+                        "error-container": "#ffdad6"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "stack-sm": "8px",
+                        "stack-md": "16px",
+                        "margin-mobile": "16px",
+                        "container-max": "1440px",
+                        "margin-desktop": "40px",
+                        "gutter": "24px",
+                        "stack-lg": "32px",
+                        "unit": "4px"
+                    },
+                    fontFamily: {
+                        "headline-md": ["Inter"],
+                        "title-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "code-md": ["monospace"],
+                        "display-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "label-md": ["Inter"]
+                    },
+                    fontSize: {
+                        "headline-md": ["24px", { lineHeight: "32px", fontWeight: "600" }],
+                        "title-lg": ["20px", { lineHeight: "28px", fontWeight: "600" }],
+                        "headline-lg-mobile": ["24px", { lineHeight: "32px", fontWeight: "600" }],
+                        "code-md": ["14px", { lineHeight: "20px", fontWeight: "400" }],
+                        "display-lg": ["48px", { lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "700" }],
+                        "body-lg": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+                        "body-md": ["14px", { lineHeight: "20px", fontWeight: "400" }],
+                        "headline-lg": ["32px", { lineHeight: "40px", letterSpacing: "-0.01em", fontWeight: "600" }],
+                        "label-md": ["12px", { lineHeight: "16px", letterSpacing: "0.05em", fontWeight: "500" }]
+                    },
+                    boxShadow: {
+                        'level-1': '0px 4px 20px rgba(11, 28, 48, 0.05)',
+                        'level-2': '0px 10px 30px rgba(11, 28, 48, 0.08)'
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-fill {
+            font-variation-settings: 'FILL' 1, 'wght' 200, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        /* Custom Input Styles focusing on the Sky Blue border rule */
+        .form-input {
+            border: 1px solid theme('colors.outline-variant');
+            background-color: theme('colors.surface-container-lowest');
+            color: theme('colors.on-surface');
+            transition: all 0.2s ease;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: theme('colors.secondary-container');
+            box-shadow: 0 0 0 3px rgba(64, 194, 253, 0.2);
+        }
+        
+        /* Hide scrollbar for cleaner look in nav */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md flex h-screen overflow-hidden selection:bg-secondary-container selection:text-on-secondary-container">
+<!-- SideNavBar (Shared Component) -->
+<nav class="hidden md:flex flex-col h-screen w-64 bg-surface-container-low border-r border-outline-variant/50 py-stack-lg px-stack-md shrink-0 sticky top-0 z-10">
+<!-- Brand Header -->
+<div class="mb-stack-lg px-unit">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-on-background flex items-center justify-center text-on-primary shrink-0">
+<span class="material-symbols-outlined icon-fill">medical_services</span>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md font-black text-on-background tracking-tight leading-none">Tá Autorizado</h1>
+<p class="font-label-md text-label-md text-secondary mt-1">Clinical Precision</p>
+</div>
+</div>
+</div>
+<!-- CTA Action -->
+<div class="mb-stack-md">
+<button class="w-full bg-on-background text-on-primary rounded-lg py-3 px-4 flex items-center justify-center gap-2 font-label-md hover:bg-on-background/90 transition-all shadow-level-1 scale-102 hover:translate-x-1 duration-200">
+<span class="material-symbols-outlined">add</span>
+                New Request
+            </button>
+</div>
+<!-- Main Navigation Tabs -->
+<div class="flex-1 overflow-y-auto no-scrollbar space-y-unit">
+<!-- Inactive -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined group-hover:text-secondary transition-colors">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined group-hover:text-secondary transition-colors">medical_services</span>
+<span class="font-label-md text-label-md">Surgeries</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined group-hover:text-secondary transition-colors">medication</span>
+<span class="font-label-md text-label-md">Providers</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined group-hover:text-secondary transition-colors">person</span>
+<span class="font-label-md text-label-md">Patient Records</span>
+</a>
+<!-- Active State Navigation (Authorizations maps to New Request context) -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg bg-secondary-container text-on-secondary-container font-semibold transition-all duration-200 scale-102 translate-x-1" href="#">
+<span class="material-symbols-outlined">verified</span>
+<span class="font-label-md text-label-md">Authorizations</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined group-hover:text-secondary transition-colors">analytics</span>
+<span class="font-label-md text-label-md">Reports</span>
+</a>
+</div>
+<!-- Footer Navigation -->
+<div class="mt-auto pt-stack-md border-t border-outline-variant/30 space-y-unit">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined group-hover:text-secondary transition-colors">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-error/10 hover:text-error transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-md text-label-md">Logout</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area Canvas -->
+<main class="flex-1 h-screen overflow-y-auto bg-background flex flex-col relative">
+<div class="w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-stack-lg lg:py-12 pb-32">
+<!-- Page Header -->
+<div class="mb-stack-lg">
+<div class="flex items-center gap-2 text-secondary mb-2">
+<span class="material-symbols-outlined text-sm">arrow_back</span>
+<a class="font-label-md text-label-md hover:underline" href="#">Voltar para Autorizações</a>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-on-background">Novo Pedido Médico</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-2 max-w-2xl">Preencha os dados abaixo com precisão para iniciar a solicitação de autorização junto à operadora.</p>
+</div>
+<!-- Main Form Card -->
+<div class="bg-surface-container-lowest rounded-xl shadow-level-1 border border-outline-variant/30 overflow-hidden">
+<!-- Progress Indicator (Minimalist) -->
+<div class="h-1 w-full bg-surface-container">
+<div class="h-full bg-secondary-container w-1/3 rounded-r-full"></div>
+</div>
+<form class="p-gutter md:p-stack-lg flex flex-col gap-stack-lg">
+<!-- Section 1: Dados do Paciente -->
+<section>
+<div class="flex items-center gap-3 border-b border-outline-variant/30 pb-3 mb-stack-md">
+<div class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center text-on-background">
+<span class="font-label-md">1</span>
+</div>
+<h3 class="font-title-lg text-title-lg text-on-background">Dados do Paciente</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-stack-md">
+<div class="col-span-1 md:col-span-2 lg:col-span-3">
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2" for="nome-completo">Nome Completo</label>
+<input class="form-input w-full rounded-md h-12 px-4 font-body-md" id="nome-completo" placeholder="Nome completo do paciente conforme documento" type="text"/>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2" for="data-nascimento">Data de Nascimento</label>
+<input class="form-input w-full rounded-md h-12 px-4 font-body-md text-on-surface-variant" id="data-nascimento" type="date"/>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2" for="cpf">CPF</label>
+<input class="form-input w-full rounded-md h-12 px-4 font-body-md" id="cpf" placeholder="000.000.000-00" type="text"/>
+</div>
+</div>
+</section>
+<!-- Section 2: Dados Clínicos -->
+<section>
+<div class="flex items-center gap-3 border-b border-outline-variant/30 pb-3 mb-stack-md mt-stack-md">
+<div class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center text-on-background">
+<span class="font-label-md">2</span>
+</div>
+<h3 class="font-title-lg text-title-lg text-on-background">Dados Clínicos</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-stack-md">
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2" for="convenio">Convênio</label>
+<div class="relative">
+<select class="form-input w-full rounded-md h-12 px-4 font-body-md appearance-none" id="convenio">
+<option disabled="" selected="" value="">Selecione a operadora de saúde</option>
+<option value="bradesco">Bradesco Saúde</option>
+<option value="sulamerica">SulAmérica</option>
+<option value="amil">Amil</option>
+</select>
+<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-on-surface-variant">
+<span class="material-symbols-outlined">expand_more</span>
+</div>
+</div>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2" for="hospital">Hospital Previsto</label>
+<div class="relative">
+<select class="form-input w-full rounded-md h-12 px-4 font-body-md appearance-none" id="hospital">
+<option disabled="" selected="" value="">Selecione o local do procedimento</option>
+<option value="h1">Hospital Sírio-Libanês</option>
+<option value="h2">Hospital Albert Einstein</option>
+</select>
+<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-on-surface-variant">
+<span class="material-symbols-outlined">expand_more</span>
+</div>
+</div>
+</div>
+<div class="col-span-1 md:col-span-2">
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2" for="procedimento">Procedimento (TUSS / Descrição)</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-3.5 text-on-surface-variant/50">search</span>
+<input class="form-input w-full rounded-md h-12 pl-12 pr-4 font-body-md" id="procedimento" placeholder="Busque por código TUSS ou nome do procedimento..." type="text"/>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 3: Documentação (Drag & Drop) -->
+<section>
+<div class="flex items-center gap-3 border-b border-outline-variant/30 pb-3 mb-stack-md mt-stack-md">
+<div class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center text-on-background">
+<span class="font-label-md">3</span>
+</div>
+<h3 class="font-title-lg text-title-lg text-on-background">Documentação Comprobatória</h3>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4">Anexe os documentos necessários para análise da operadora. Arquivos obrigatórios: <span class="font-semibold text-on-surface">Documento de Identificação, Laudo Médico e Exames de Imagem (Ex: Ressonância)</span>.</p>
+<!-- Upload Zone -->
+<div class="group relative border-2 border-dashed border-outline-variant/50 rounded-xl bg-surface-container-low/50 hover:bg-surface-container hover:border-secondary-container transition-all duration-300 p-8 flex flex-col items-center justify-center text-center cursor-pointer">
+<input aria-label="Upload files" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" multiple="" type="file"/>
+<div class="w-16 h-16 rounded-full bg-surface-container-highest flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-secondary-container/20 transition-transform duration-300">
+<span class="material-symbols-outlined text-secondary text-3xl">cloud_upload</span>
+</div>
+<h4 class="font-headline-md text-headline-md text-on-background mb-1">Arraste e solte arquivos aqui</h4>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4">ou clique para procurar no seu computador</p>
+<div class="flex gap-2 text-label-md font-label-md text-on-surface-variant/80 bg-surface-container-lowest px-4 py-2 rounded-full shadow-sm border border-outline-variant/20">
+<span class="material-symbols-outlined text-sm">picture_as_pdf</span> PDF, JPG, PNG (Max 10MB)
+                            </div>
+</div>
+</section>
+</form>
+</div>
+</div>
+<!-- Sticky Footer Actions -->
+<div class="sticky bottom-0 left-0 w-full bg-surface-container-lowest/90 backdrop-blur-md border-t border-outline-variant/30 px-margin-mobile md:px-margin-desktop py-4 z-20 flex justify-end gap-4 shadow-[0_-4px_20px_rgba(11,28,48,0.02)]">
+<button class="px-6 py-3 rounded-lg font-label-md text-label-md text-on-background bg-surface-container-lowest border border-outline-variant hover:bg-surface-container-low hover:border-on-surface-variant transition-colors" type="button">
+                Cancelar
+            </button>
+<button class="px-8 py-3 rounded-lg font-label-md text-label-md text-on-primary bg-on-background hover:bg-on-background/90 shadow-level-1 transition-all flex items-center gap-2" type="button">
+                Gerar Pedido Médico
+                <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</main>
+</body></html>

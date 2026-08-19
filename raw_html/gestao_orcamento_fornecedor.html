@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Tá Autorizado - Commercial Case Details</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed": "#131b2e",
+                        "on-secondary-container": "#004d6a",
+                        "tertiary-container": "#191c1e",
+                        "inverse-surface": "#213145",
+                        "on-surface-variant": "#45464d",
+                        "secondary-fixed-dim": "#7bd0ff",
+                        "tertiary-fixed": "#e0e3e5",
+                        "on-secondary": "#ffffff",
+                        "outline": "#76777d",
+                        "primary-fixed-dim": "#bec6e0",
+                        "primary-container": "#131b2e",
+                        "error": "#ba1a1a",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-bright": "#f8f9ff",
+                        "on-error-container": "#93000a",
+                        "surface-container-low": "#eff4ff",
+                        "surface": "#f8f9ff",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-primary-container": "#7c839b",
+                        "secondary": "#00668a",
+                        "on-primary": "#ffffff",
+                        "outline-variant": "#c6c6cd",
+                        "on-surface": "#0b1c30",
+                        "surface-container": "#e5eeff",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed-variant": "#444749",
+                        "surface-container-highest": "#d3e4fe",
+                        "secondary-fixed": "#c4e7ff",
+                        "secondary-container": "#40c2fd",
+                        "on-secondary-fixed": "#001e2c",
+                        "tertiary": "#000000",
+                        "on-background": "#0b1c30",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "inverse-primary": "#bec6e0",
+                        "background": "#f8f9ff",
+                        "on-secondary-fixed-variant": "#004c69",
+                        "primary-fixed": "#dae2fd",
+                        "on-tertiary-fixed": "#191c1e",
+                        "on-error": "#ffffff",
+                        "surface-dim": "#cbdbf5",
+                        "surface-tint": "#565e74",
+                        "surface-container-high": "#dce9ff",
+                        "on-tertiary": "#ffffff",
+                        "primary": "#000000",
+                        "surface-variant": "#d3e4fe",
+                        "tertiary-fixed-dim": "#c4c7c9",
+                        "on-tertiary-container": "#818486"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-sm": "8px",
+                        "unit": "4px",
+                        "container-max": "1440px",
+                        "stack-lg": "32px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "40px",
+                        "gutter": "24px",
+                        "stack-md": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "code-md": ["monospace"],
+                        "title-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "code-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined[data-weight="fill"] {
+            font-variation-settings: 'FILL' 1;
+        }
+        
+        /* Custom scrollbar for clean aesthetic */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen font-body-md antialiased overflow-x-hidden">
+<!-- Top Navigation (Mobile Only) -->
+<header class="md:hidden flex justify-between items-center h-16 px-margin-mobile w-full bg-surface-container-lowest border-b border-outline-variant shadow-sm z-50 sticky top-0">
+<div class="flex items-center gap-stack-sm">
+<span class="font-headline-md text-headline-md font-bold text-on-background">Tá Autorizado</span>
+</div>
+<div class="flex items-center gap-stack-md">
+<button class="text-secondary hover:bg-surface-container-low p-2 rounded-full transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="text-secondary hover:bg-surface-container-low p-2 rounded-full transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+</div>
+</header>
+<div class="flex h-screen overflow-hidden">
+<!-- SideNavBar (Desktop) -->
+<aside class="hidden md:flex flex-col h-full py-stack-lg px-stack-md bg-surface-container-low w-64 border-r border-outline-variant shrink-0 z-40 fixed left-0 top-0 overflow-y-auto">
+<div class="mb-stack-lg px-unit">
+<div class="flex items-center gap-stack-sm mb-unit">
+<img class="w-8 h-8 rounded-DEFAULT object-cover shadow-sm" data-alt="A minimalist, professional corporate logo placeholder for a medical software company. Deep navy blue and bright white colors. Clean, geometric design implying trust, security, and precision. Soft lighting, modern aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQvcPsB3GScYwt0dMgleDZIFEH4W63H4ltGERdK1N25h9w_T5iPs5uJ1ZcZcq-ebn3PypEGoPtAlZXkNuNWzH3KmFeecO3LfS0uKH-ti_CBNZcQ6BZ_z7KAI9DyCWPnUlWUqYmZ6jjl7ON6bcVoLr4C7OmmthXTtUjc5La-wIenTEXc6QDZU3ql6PvnIMefO5SRXpY7SDX2IFyG0xNr0awjSRJMazpPgJDT4TuNNi150bSwRYlBoJV"/>
+<span class="font-headline-lg text-headline-lg font-black text-on-background leading-none">Tá Autorizado</span>
+</div>
+<span class="font-label-md text-label-md text-secondary uppercase tracking-widest pl-10">Clinical Precision</span>
+</div>
+<button class="w-full bg-secondary text-on-primary py-3 rounded-DEFAULT font-title-lg text-title-lg shadow-sm hover:shadow-md transition-all flex items-center justify-center gap-2 mb-stack-lg">
+<span class="material-symbols-outlined text-[20px]" data-icon="add">add</span>
+                New Request
+            </button>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-stack-sm px-3 py-3 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform" data-icon="dashboard">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-stack-sm px-3 py-3 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform" data-icon="medical_services">medical_services</span>
+<span class="font-label-md text-label-md">Surgeries</span>
+</a>
+<a class="flex items-center gap-stack-sm px-3 py-3 bg-secondary-container text-on-secondary-container rounded-lg font-semibold shadow-sm transition-all duration-200 scale-102 group" href="#">
+<span class="material-symbols-outlined" data-icon="medication" data-weight="fill">medication</span>
+<span class="font-label-md text-label-md">Providers</span>
+</a>
+<a class="flex items-center gap-stack-sm px-3 py-3 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform" data-icon="person">person</span>
+<span class="font-label-md text-label-md">Patient Records</span>
+</a>
+<a class="flex items-center gap-stack-sm px-3 py-3 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform" data-icon="verified">verified</span>
+<span class="font-label-md text-label-md">Authorizations</span>
+</a>
+<a class="flex items-center gap-stack-sm px-3 py-3 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform" data-icon="analytics">analytics</span>
+<span class="font-label-md text-label-md">Reports</span>
+</a>
+</nav>
+<div class="mt-auto pt-stack-md border-t border-outline-variant space-y-1">
+<a class="flex items-center gap-stack-sm px-3 py-3 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform" data-icon="settings">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+<a class="flex items-center gap-stack-sm px-3 py-3 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform" data-icon="logout">logout</span>
+<span class="font-label-md text-label-md">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="flex-1 h-full overflow-y-auto md:ml-64 bg-background">
+<!-- Page Header -->
+<div class="bg-surface-container-lowest border-b border-outline-variant px-margin-mobile md:px-margin-desktop py-stack-md sticky top-0 z-30">
+<div class="max-w-container-max mx-auto flex flex-col md:flex-row md:items-center justify-between gap-stack-sm">
+<div class="flex items-center gap-stack-md">
+<button class="text-secondary hover:bg-surface-container-low p-1.5 rounded-full transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="bg-surface-container px-2 py-0.5 rounded text-[10px] font-bold text-on-surface tracking-wider uppercase">Case #OP-2023-8842</span>
+<span class="bg-surface-container-highest text-secondary-container px-2 py-0.5 rounded text-[10px] font-bold tracking-wider uppercase border border-secondary-container/30">In Negotiation</span>
+</div>
+<h1 class="font-headline-md text-headline-md text-on-background">Dr. Sarah Jenkins - Total Knee Arthroplasty</h1>
+</div>
+</div>
+<div class="flex items-center gap-stack-sm mt-stack-sm md:mt-0">
+<button class="px-4 py-2 bg-surface-container-lowest border border-outline-variant text-on-background font-label-md text-label-md rounded-DEFAULT hover:bg-surface-container-low transition-colors shadow-sm">
+                            View Patient File
+                        </button>
+<button class="px-4 py-2 bg-secondary text-on-primary font-label-md text-label-md rounded-DEFAULT hover:opacity-90 transition-opacity shadow-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]" data-icon="edit_document">edit_document</span>
+                            Update Proposal
+                        </button>
+</div>
+</div>
+</div>
+<div class="max-w-container-max mx-auto p-margin-mobile md:p-margin-desktop space-y-stack-lg pb-24 md:pb-margin-desktop">
+<!-- Operational Tracking Pipeline -->
+<section>
+<h2 class="font-title-lg text-title-lg text-on-background mb-stack-md flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary" data-icon="linear_scale">linear_scale</span>
+                        Authorization Pipeline
+                    </h2>
+<div class="bg-surface-container-lowest rounded-lg p-stack-md shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border border-outline-variant/30">
+<div class="relative">
+<!-- Track line -->
+<div class="absolute top-1/2 left-0 w-full h-1 bg-surface-container -translate-y-1/2 z-0 hidden md:block"></div>
+<div class="absolute top-1/2 left-0 w-2/3 h-1 bg-secondary -translate-y-1/2 z-0 hidden md:block transition-all duration-1000 ease-in-out" id="progress-bar"></div>
+<div class="flex flex-col md:flex-row justify-between relative z-10 gap-stack-md md:gap-0">
+<!-- Step 1 -->
+<div class="flex items-center md:flex-col gap-3 md:gap-2 w-full md:w-auto opacity-100">
+<div class="w-8 h-8 rounded-full bg-secondary text-on-primary flex items-center justify-center border-4 border-surface-container-lowest shadow-sm shrink-0">
+<span class="material-symbols-outlined text-[16px]" data-icon="check">check</span>
+</div>
+<div class="md:text-center">
+<div class="font-label-md text-label-md text-on-background">Budget Received</div>
+<div class="text-[11px] text-on-surface-variant">Oct 12, 09:41 AM</div>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="flex items-center md:flex-col gap-3 md:gap-2 w-full md:w-auto opacity-100">
+<div class="w-8 h-8 rounded-full bg-secondary text-on-primary flex items-center justify-center border-4 border-surface-container-lowest shadow-sm shrink-0">
+<span class="material-symbols-outlined text-[16px]" data-icon="check">check</span>
+</div>
+<div class="md:text-center">
+<div class="font-label-md text-label-md text-on-background">Responded</div>
+<div class="text-[11px] text-on-surface-variant">Oct 13, 11:20 AM</div>
+</div>
+</div>
+<!-- Step 3 -->
+<div class="flex items-center md:flex-col gap-3 md:gap-2 w-full md:w-auto opacity-100">
+<div class="w-8 h-8 rounded-full bg-surface-container-lowest border-2 border-secondary text-secondary flex items-center justify-center shadow-sm shrink-0 animate-pulse">
+<div class="w-2.5 h-2.5 rounded-full bg-secondary"></div>
+</div>
+<div class="md:text-center">
+<div class="font-label-md text-label-md text-secondary font-bold">In Negotiation</div>
+<div class="text-[11px] text-on-surface-variant">Current Stage</div>
+</div>
+</div>
+<!-- Step 4 -->
+<div class="flex items-center md:flex-col gap-3 md:gap-2 w-full md:w-auto opacity-50">
+<div class="w-8 h-8 rounded-full bg-surface-container text-on-surface-variant flex items-center justify-center border-4 border-surface-container-lowest shrink-0">
+<span class="material-symbols-outlined text-[16px]" data-icon="verified">verified</span>
+</div>
+<div class="md:text-center">
+<div class="font-label-md text-label-md text-on-surface-variant">Authorized</div>
+<div class="text-[11px] text-on-surface-variant">Pending</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+<!-- Budget Control Metrics (Bento Style) -->
+<section class="lg:col-span-2 space-y-stack-md">
+<div class="flex items-center justify-between">
+<h2 class="font-title-lg text-title-lg text-on-background flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary" data-icon="account_balance">account_balance</span>
+                                Financial Overview
+                            </h2>
+<button class="text-secondary font-label-md text-label-md hover:underline flex items-center gap-1">
+                                Download PDF <span class="material-symbols-outlined text-[14px]" data-icon="download">download</span>
+</button>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-stack-sm">
+<!-- Initial Budget -->
+<div class="bg-surface-container-lowest p-stack-md rounded-lg shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border border-outline-variant/20 flex flex-col justify-between">
+<div class="flex items-start justify-between mb-4">
+<div class="w-10 h-10 rounded bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="receipt_long">receipt_long</span>
+</div>
+<span class="bg-surface-container text-on-surface-variant px-2 py-0.5 rounded text-[10px] font-medium uppercase">Hospital/Insurance</span>
+</div>
+<div>
+<div class="font-label-md text-label-md text-on-surface-variant mb-1">Requested Value</div>
+<div class="font-headline-md text-headline-md text-on-background">$18,450.00</div>
+</div>
+</div>
+<!-- Negotiated Value -->
+<div class="bg-surface-container-lowest p-stack-md rounded-lg shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border-l-4 border-l-secondary-container flex flex-col justify-between relative overflow-hidden">
+<!-- Subtle bg pattern -->
+<div class="absolute -right-4 -bottom-4 opacity-5">
+<span class="material-symbols-outlined text-[100px]" data-icon="handshake">handshake</span>
+</div>
+<div class="flex items-start justify-between mb-4 relative z-10">
+<div class="w-10 h-10 rounded bg-secondary-container/20 flex items-center justify-center text-secondary-container">
+<span class="material-symbols-outlined" data-icon="gavel">gavel</span>
+</div>
+<span class="bg-secondary-container/10 text-secondary-container px-2 py-0.5 rounded text-[10px] font-medium uppercase border border-secondary-container/20">Current Negotiation</span>
+</div>
+<div class="relative z-10">
+<div class="font-label-md text-label-md text-on-surface-variant mb-1">Counter-Proposal</div>
+<div class="font-headline-md text-headline-md text-on-background">$15,200.00</div>
+<div class="flex items-center gap-1 mt-2 text-[11px] text-secondary">
+<span class="material-symbols-outlined text-[12px]" data-icon="arrow_downward">arrow_downward</span>
+<span>17.6% variance from requested</span>
+</div>
+</div>
+</div>
+<!-- Authorized Value -->
+<div class="bg-surface-container-lowest p-stack-md rounded-lg shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border border-outline-variant/20 flex flex-col justify-between opacity-60 grayscale hover:grayscale-0 transition-all">
+<div class="flex items-start justify-between mb-4">
+<div class="w-10 h-10 rounded bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="verified">verified</span>
+</div>
+<span class="bg-surface-container text-on-surface-variant px-2 py-0.5 rounded text-[10px] font-medium uppercase">Final</span>
+</div>
+<div>
+<div class="font-label-md text-label-md text-on-surface-variant mb-1">Authorized Value</div>
+<div class="font-headline-md text-headline-md text-on-surface-variant italic">Pending Agreement</div>
+</div>
+</div>
+</div>
+<!-- Itemized Breakdown Table -->
+<div class="bg-surface-container-lowest rounded-lg shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border border-outline-variant/20 overflow-hidden mt-stack-md">
+<div class="px-stack-md py-3 border-b border-outline-variant/30 flex justify-between items-center bg-surface-bright">
+<span class="font-label-md text-label-md text-on-background">Itemized Breakdown</span>
+<button class="text-secondary text-[12px] font-medium hover:underline">Edit Items</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant/20">
+<th class="py-2 px-4 font-label-md text-[11px] text-on-surface-variant uppercase tracking-wider font-medium">Description</th>
+<th class="py-2 px-4 font-label-md text-[11px] text-on-surface-variant uppercase tracking-wider font-medium text-right">Requested</th>
+<th class="py-2 px-4 font-label-md text-[11px] text-secondary-container uppercase tracking-wider font-bold text-right bg-secondary-container/5">Proposed</th>
+<th class="py-2 px-4 font-label-md text-[11px] text-on-surface-variant uppercase tracking-wider font-medium text-center">Status</th>
+</tr>
+</thead>
+<tbody class="font-body-md text-[13px]">
+<tr class="border-b border-outline-variant/10 hover:bg-surface-bright transition-colors">
+<td class="py-3 px-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant" data-icon="medication">medication</span>
+                                                Surgical Materials (Implants)
+                                            </td>
+<td class="py-3 px-4 text-right">$12,500.00</td>
+<td class="py-3 px-4 text-right font-medium text-on-background bg-secondary-container/5">$10,000.00</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center gap-1 bg-surface-container text-on-surface-variant px-2 py-0.5 rounded text-[10px]">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span> Disputed
+                                                </span>
+</td>
+</tr>
+<tr class="border-b border-outline-variant/10 hover:bg-surface-bright transition-colors">
+<td class="py-3 px-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant" data-icon="medical_services">medical_services</span>
+                                                Surgeon Fees
+                                            </td>
+<td class="py-3 px-4 text-right">$4,000.00</td>
+<td class="py-3 px-4 text-right font-medium text-on-background bg-secondary-container/5">$3,800.00</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center gap-1 bg-surface-container text-on-surface-variant px-2 py-0.5 rounded text-[10px]">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span> Negotiating
+                                                </span>
+</td>
+</tr>
+<tr class="hover:bg-surface-bright transition-colors">
+<td class="py-3 px-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant" data-icon="local_hospital">local_hospital</span>
+                                                Anesthesia &amp; Facilities
+                                            </td>
+<td class="py-3 px-4 text-right">$1,950.00</td>
+<td class="py-3 px-4 text-right font-medium text-on-background bg-secondary-container/5">$1,400.00</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center gap-1 bg-surface-container text-on-surface-variant px-2 py-0.5 rounded text-[10px]">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span> Pending Review
+                                                </span>
+</td>
+</tr>
+</tbody>
+<tfoot class="bg-surface-container-lowest border-t-2 border-outline-variant/20 font-label-md">
+<tr>
+<td class="py-3 px-4 text-right text-on-surface-variant">Totals:</td>
+<td class="py-3 px-4 text-right text-on-background font-bold">$18,450.00</td>
+<td class="py-3 px-4 text-right text-secondary-container font-bold text-[14px] bg-secondary-container/5">$15,200.00</td>
+<td></td>
+</tr>
+</tfoot>
+</table>
+</div>
+</div>
+</section>
+<!-- Provider & Context Info -->
+<aside class="space-y-stack-md">
+<!-- Provider Card -->
+<div class="bg-surface-container-lowest rounded-lg p-stack-md shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border border-outline-variant/20">
+<h3 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-4 border-b border-outline-variant/20 pb-2">Provider Details</h3>
+<div class="flex items-start gap-3 mb-4">
+<img class="w-12 h-12 rounded-full object-cover shadow-sm border border-outline-variant/20" data-alt="A professional headshot of a female surgeon, Dr. Sarah Jenkins, in her late 40s. She is wearing dark navy blue scrubs and a stethoscope around her neck. Clean, brightly lit clinical background. Minimalist style, exuding competence and authority." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsHCP8FtxXR6qdO5p-B-NJQsQBDyNIc8mPhRiqdMH1sBauH10X9JYtALFrNVwHf3zW61Gb3Jf84sQA9Ld_BkgZ10dzWOtNx6FlGAYdE_M3R4OrK4ZKfDuJ807_7I04aPk1SCAEf0r-8WuP1lysMmdBV6nnFX7LvkLctyhAQmjqoVL7-RGxFvWHlOnvzuWE1dtAP9I7iVv7mGvm7NYa121PDcNjhbsyvBNFD92Jbmje9dFEiYOGDyyn"/>
+<div>
+<div class="font-title-lg text-[16px] font-semibold text-on-background leading-tight">Dr. Sarah Jenkins</div>
+<div class="text-[12px] text-on-surface-variant">Orthopedic Surgeon</div>
+<div class="flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-[14px] text-secondary" data-icon="star" data-weight="fill">star</span>
+<span class="text-[11px] font-medium">Tier 1 Provider</span>
+</div>
+</div>
+</div>
+<div class="space-y-2 text-[12px]">
+<div class="flex justify-between border-b border-surface-container pb-1">
+<span class="text-on-surface-variant">Facility:</span>
+<span class="font-medium text-on-background">Memorial General Hospital</span>
+</div>
+<div class="flex justify-between border-b border-surface-container pb-1">
+<span class="text-on-surface-variant">Tax ID / NPI:</span>
+<span class="font-code-md text-on-background">88-442910</span>
+</div>
+<div class="flex justify-between pb-1">
+<span class="text-on-surface-variant">Historical Approval Rate:</span>
+<span class="font-medium text-secondary">92%</span>
+</div>
+</div>
+</div>
+<!-- Communication/Notes Widget -->
+<div class="bg-surface-container-lowest rounded-lg shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border border-outline-variant/20 flex flex-col h-[300px]">
+<div class="p-4 border-b border-outline-variant/20 flex justify-between items-center bg-surface-bright rounded-t-lg">
+<h3 class="font-label-md text-label-md text-on-background flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-secondary" data-icon="forum">forum</span>
+                                    Negotiation Notes
+                                </h3>
+</div>
+<div class="flex-1 overflow-y-auto p-4 space-y-4 text-[13px] bg-background">
+<!-- Note 1 -->
+<div class="flex gap-3">
+<div class="w-6 h-6 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center shrink-0 font-bold text-[10px]">TA</div>
+<div>
+<div class="flex items-baseline gap-2 mb-0.5">
+<span class="font-semibold text-on-background">System (Auto)</span>
+<span class="text-[10px] text-on-surface-variant">Oct 13, 11:20 AM</span>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant/20 p-2 rounded-DEFAULT rounded-tl-none shadow-sm text-on-surface">
+                                            Counter-proposal sent. Variance in implant costs flagged against regional benchmarks.
+                                        </div>
+</div>
+</div>
+<!-- Note 2 -->
+<div class="flex gap-3 flex-row-reverse">
+<img class="w-6 h-6 rounded-full object-cover shrink-0 border border-outline-variant/20" data-alt="Small avatar icon representing a medical billing administrator. Professional, minimalist design, dark navy background with white silhouette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD2fo6GsHuMhKLlfKTviNhf5xbWqqSwnUINgFhuSX2yoivaDq_Pa6xY27yWQ3aJU4Ha5_L4HA3QvoszcC6dVn1_SKjXdGXnTtl0126u4DhyJW5FFxahCTvjm9MO9I9JcLwNEQiELBiVnJBDq_iuho1Ph_xLpJTOB2JWZCF3Jzm1wHusblIy1JQXGxnb0LOQAqkqBkNjx66X3ih-Y4w_RUYNULEpABuZytzYP0soT_VkZDKkFMuXRLq0"/>
+<div class="text-right">
+<div class="flex items-baseline gap-2 mb-0.5 justify-end">
+<span class="text-[10px] text-on-surface-variant">Oct 14, 09:15 AM</span>
+<span class="font-semibold text-on-background">Provider Office (Mary)</span>
+</div>
+<div class="bg-surface-container-low border border-secondary/20 p-2 rounded-DEFAULT rounded-tr-none shadow-sm text-on-surface text-left inline-block">
+                                            Reviewing counter-proposal. Doctor insists on specific titanium alloy grade for this patient due to bone density issues. Documentation attached.
+                                        </div>
+</div>
+</div>
+</div>
+<div class="p-3 border-t border-outline-variant/20 bg-surface-container-lowest rounded-b-lg">
+<div class="flex items-center gap-2">
+<input class="w-full text-[13px] px-3 py-1.5 rounded-DEFAULT border border-outline-variant focus:border-secondary focus:ring-1 focus:ring-secondary outline-none transition-all" placeholder="Add internal note..." type="text"/>
+<button class="w-8 h-8 rounded-DEFAULT bg-secondary text-on-primary flex items-center justify-center shrink-0 hover:bg-secondary/90 transition-colors">
+<span class="material-symbols-outlined text-[16px]" data-icon="send">send</span>
+</button>
+</div>
+</div>
+</div>
+</aside>
+</div>
+</div>
+</main>
+</div>
+<!-- Bottom Navigation (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full bg-surface-container-lowest border-t border-outline-variant flex justify-around items-center h-16 px-2 pb-safe z-50 shadow-[0_-2px_10px_rgba(0,0,0,0.05)]">
+<a class="flex flex-col items-center justify-center w-full h-full text-on-surface-variant hover:text-on-surface transition-colors" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="dashboard">dashboard</span>
+<span class="text-[10px] font-medium">Dash</span>
+</a>
+<a class="flex flex-col items-center justify-center w-full h-full text-on-surface-variant hover:text-on-surface transition-colors" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="medical_services">medical_services</span>
+<span class="text-[10px] font-medium">Cases</span>
+</a>
+<a class="flex flex-col items-center justify-center w-full h-full text-secondary relative" href="#">
+<div class="absolute -top-3 bg-secondary text-on-primary w-10 h-10 rounded-full flex items-center justify-center shadow-md border-2 border-surface-container-lowest">
+<span class="material-symbols-outlined" data-icon="medication" data-weight="fill">medication</span>
+</div>
+<span class="text-[10px] font-bold mt-6">Providers</span>
+</a>
+<a class="flex flex-col items-center justify-center w-full h-full text-on-surface-variant hover:text-on-surface transition-colors" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="person">person</span>
+<span class="text-[10px] font-medium">Patients</span>
+</a>
+</nav>
+<script>
+        // Simple animation trigger for the progress bar
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                const bar = document.getElementById('progress-bar');
+                if(bar) {
+                    bar.style.width = '66%'; // Animates to the 'In Negotiation' stage
+                }
+            }, 300);
+        });
+    </script>
+</body></html>

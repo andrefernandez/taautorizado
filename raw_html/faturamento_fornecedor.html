@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>T\u00e1 Autorizado - Billing &amp; Reports</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed": "#131b2e",
+                        "on-secondary-container": "#004d6a",
+                        "tertiary-container": "#191c1e",
+                        "inverse-surface": "#213145",
+                        "on-surface-variant": "#45464d",
+                        "secondary-fixed-dim": "#7bd0ff",
+                        "tertiary-fixed": "#e0e3e5",
+                        "on-secondary": "#ffffff",
+                        "outline": "#76777d",
+                        "primary-fixed-dim": "#bec6e0",
+                        "primary-container": "#131b2e",
+                        "error": "#ba1a1a",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-bright": "#f8f9ff",
+                        "on-error-container": "#93000a",
+                        "surface-container-low": "#eff4ff",
+                        "surface": "#f8f9ff",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-primary-container": "#7c839b",
+                        "secondary": "#00668a",
+                        "on-primary": "#ffffff",
+                        "outline-variant": "#c6c6cd",
+                        "on-surface": "#0b1c30",
+                        "surface-container": "#e5eeff",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed-variant": "#444749",
+                        "surface-container-highest": "#d3e4fe",
+                        "secondary-fixed": "#c4e7ff",
+                        "secondary-container": "#40c2fd",
+                        "on-secondary-fixed": "#001e2c",
+                        "tertiary": "#000000",
+                        "on-background": "#0b1c30",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "inverse-primary": "#bec6e0",
+                        "background": "#f8f9ff",
+                        "on-secondary-fixed-variant": "#004c69",
+                        "primary-fixed": "#dae2fd",
+                        "on-tertiary-fixed": "#191c1e",
+                        "on-error": "#ffffff",
+                        "surface-dim": "#cbdbf5",
+                        "surface-tint": "#565e74",
+                        "surface-container-high": "#dce9ff",
+                        "on-tertiary": "#ffffff",
+                        "primary": "#000000",
+                        "surface-variant": "#d3e4fe",
+                        "tertiary-fixed-dim": "#c4c7c9",
+                        "on-tertiary-container": "#818486"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-sm": "8px",
+                        "unit": "4px",
+                        "container-max": "1440px",
+                        "stack-lg": "32px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "40px",
+                        "gutter": "24px",
+                        "stack-md": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "code-md": ["monospace"],
+                        "title-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "code-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "title-lg": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        /* Custom scrollbar for clean look */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #c6c6cd;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #7c839b;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md antialiased flex h-screen overflow-hidden">
+<!-- SideNavBar -->
+<nav class="hidden md:flex flex-col fixed left-0 top-0 h-screen w-64 bg-surface-container-low border-r border-outline-variant py-stack-lg px-stack-md z-40">
+<div class="flex items-center gap-3 mb-stack-lg px-2">
+<img alt="Company Logo Placeholder" class="w-10 h-10 rounded-lg object-cover" data-alt="A clean, minimalist abstract logo composed of geometric shapes in deep navy blue and stark white. The design is sleek, modern, and clinical, representing precision and trust in a healthcare software context. High contrast, sharp edges, isolated on a pure white background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCK-XbPU_AuxELXrFcqAoyQvfjqYzAabHXo1mrTn2o2WxQz-iCuGNYFsllQ29VZF0N382c8DYwgSPXXxenEaxOlWes_r8D6iGfHY9bpZiKFY_Kape_NtPSITHiUhKJHqylOrrEEo5S1kj1DstYyeDhHsX2ruPQH6u8fBmdf72h_GpseEq4Qpir5hL8kOxdO4GKA8kkqbYczkAbPf0Hk0iPUVwm4z_9AjVUfIRQNltEOyDxgP4apVSZA"/>
+<div>
+<h1 class="font-headline-lg text-headline-lg font-black text-on-background leading-none" style="font-size: 20px;">T\u00e1 Autorizado</h1>
+<p class="font-label-md text-label-md text-on-surface-variant mt-1">Clinical Precision</p>
+</div>
+</div>
+<button class="w-full bg-primary-container text-on-primary-container py-2.5 px-4 rounded-lg font-title-lg text-title-lg flex items-center justify-center gap-2 mb-stack-lg hover:bg-surface-container-highest transition-all shadow-sm" style="font-size: 14px;">
+<span class="material-symbols-outlined text-[18px]">add</span>
+            New Request
+        </button>
+<div class="flex-1 overflow-y-auto">
+<ul class="space-y-1">
+<li>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-highest hover:text-on-surface transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:scale-110 transition-transform">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-highest hover:text-on-surface transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:scale-110 transition-transform">medical_services</span>
+<span class="font-label-md text-label-md">Surgeries</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-highest hover:text-on-surface transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:scale-110 transition-transform">medication</span>
+<span class="font-label-md text-label-md">Providers</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-highest hover:text-on-surface transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:scale-110 transition-transform">person</span>
+<span class="font-label-md text-label-md">Patient Records</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-highest hover:text-on-surface transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:scale-110 transition-transform">verified</span>
+<span class="font-label-md text-label-md">Authorizations</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-secondary-container text-on-secondary-container font-semibold transition-all duration-200 scale-102 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined fill text-[20px]">analytics</span>
+<span class="font-label-md text-label-md">Reports</span>
+</a>
+</li>
+</ul>
+</div>
+<div class="mt-auto pt-stack-md border-t border-outline-variant/30">
+<ul class="space-y-1">
+<li>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-highest hover:text-on-surface transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:scale-110 transition-transform">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-highest hover:text-on-surface transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:scale-110 transition-transform">logout</span>
+<span class="font-label-md text-label-md">Logout</span>
+</a>
+</li>
+</ul>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col md:ml-64 h-full relative">
+<!-- TopAppBar (Mobile Only) -->
+<header class="md:hidden flex justify-between items-center h-16 px-margin-mobile w-full bg-surface-container-lowest border-b border-outline-variant shadow-sm z-30">
+<h1 class="font-headline-md text-headline-md font-bold text-on-background">T\u00e1 Autorizado</h1>
+<div class="flex items-center gap-2">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-low rounded-full transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<img alt="User profile avatar" class="w-8 h-8 rounded-full object-cover border border-outline-variant" data-alt="A professional headshot of a healthcare administrator in a bright, modern clinical setting. Natural lighting, crisp white background, wearing subtle professional attire. Minimalist, high quality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcoi4Se-cbBqx7YJRtiCWVDP3aKOES836x8tS93OGe56lWtgq1pHFmFEgSAAqxXGdOdvndIuL5eGKNKmpXNN2eAu2JcWlirE2ekQ3UeGD-oC9pIlc9tNPshaC2AckHWkqDdbl4yw-9_xjUOGA17TqQeROGWNXTifMxKTJgk276l7cLR7aP7enSS3KFE1IaU8_kzrIpQeG-tf6M95P3xyqy6QCVSZMXYDZtn8XneD99F4QGmreiWusa"/>
+</div>
+</header>
+<!-- Page Canvas -->
+<div class="flex-1 overflow-y-auto p-margin-mobile md:p-margin-desktop bg-background pb-24 md:pb-margin-desktop">
+<div class="max-w-container-max mx-auto space-y-stack-lg">
+<!-- Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-stack-md">
+<div>
+<h2 class="font-display-lg text-display-lg text-on-background">Billing &amp; Reports</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-2">Financial overview and billing queue for current period.</p>
+</div>
+<div class="flex gap-3">
+<button class="px-4 py-2 bg-surface-container-lowest border border-outline-variant rounded-lg font-label-md text-label-md text-on-surface flex items-center gap-2 hover:bg-surface-container-low transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>
+                            This Month
+                        </button>
+<button class="px-4 py-2 bg-primary-container text-on-primary-container rounded-lg font-label-md text-label-md flex items-center gap-2 hover:opacity-90 transition-opacity shadow-sm">
+<span class="material-symbols-outlined text-[18px]">download</span>
+                            Export
+                        </button>
+</div>
+</div>
+<!-- KPI Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- KPI 1 -->
+<div class="bg-surface-container-lowest rounded-xl p-6 shadow-sm border border-outline-variant/50 flex flex-col justify-between">
+<div class="flex justify-between items-start mb-4">
+<h3 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Pending Billing</h3>
+<span class="material-symbols-outlined text-secondary-container bg-secondary-container/10 p-2 rounded-full">receipt_long</span>
+</div>
+<div>
+<div class="font-display-lg text-display-lg text-on-background mb-1">$45,230</div>
+<div class="flex items-center gap-1 font-label-md text-label-md text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]">arrow_upward</span>
+<span>12 surgeries ready</span>
+</div>
+</div>
+</div>
+<!-- KPI 2 -->
+<div class="bg-surface-container-lowest rounded-xl p-6 shadow-sm border border-outline-variant/50 flex flex-col justify-between relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-br from-surface-container-low/50 to-transparent pointer-events-none"></div>
+<div class="flex justify-between items-start mb-4 relative z-10">
+<h3 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Awaiting Payment</h3>
+<span class="material-symbols-outlined text-secondary bg-secondary/10 p-2 rounded-full">schedule</span>
+</div>
+<div class="relative z-10">
+<div class="font-display-lg text-display-lg text-on-background mb-1">$128,400</div>
+<div class="flex items-center gap-1 font-label-md text-label-md text-on-surface-variant">
+<span>34 claims processed</span>
+</div>
+</div>
+</div>
+<!-- KPI 3 -->
+<div class="bg-primary-container rounded-xl p-6 shadow-sm flex flex-col justify-between text-on-primary-container">
+<div class="flex justify-between items-start mb-4">
+<h3 class="font-label-md text-label-md text-on-primary-container/80 uppercase tracking-wider">Total Billed (YTD)</h3>
+<span class="material-symbols-outlined text-on-primary-container bg-on-primary-container/20 p-2 rounded-full">account_balance_wallet</span>
+</div>
+<div>
+<div class="font-display-lg text-display-lg mb-1">$892,500</div>
+<div class="flex items-center gap-1 font-label-md text-label-md text-on-primary-container/80">
+<span class="material-symbols-outlined text-[16px]">trending_up</span>
+<span>+15% vs last year</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Main Section: Charts and Tables Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+<!-- Left Column: Surgeries Ready for Billing (Table) -->
+<div class="lg:col-span-2 bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant/50 overflow-hidden flex flex-col">
+<div class="p-5 border-b border-outline-variant/50 flex justify-between items-center bg-surface-bright">
+<h3 class="font-title-lg text-title-lg text-on-background">Surgeries Ready for Billing</h3>
+<button class="text-secondary font-label-md text-label-md hover:underline">View All</button>
+</div>
+<div class="overflow-x-auto flex-1">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-bright border-b border-outline-variant/50">
+<th class="py-3 px-5 font-label-md text-label-md text-on-surface-variant font-medium">Patient / ID</th>
+<th class="py-3 px-5 font-label-md text-label-md text-on-surface-variant font-medium">Procedure</th>
+<th class="py-3 px-5 font-label-md text-label-md text-on-surface-variant font-medium">Date</th>
+<th class="py-3 px-5 font-label-md text-label-md text-on-surface-variant font-medium">Est. Value</th>
+<th class="py-3 px-5 font-label-md text-label-md text-on-surface-variant font-medium text-right">Action</th>
+</tr>
+</thead>
+<tbody>
+<tr class="border-b border-outline-variant/20 hover:bg-surface-container-low/30 transition-colors">
+<td class="py-4 px-5">
+<div class="font-body-md text-body-md font-medium text-on-surface">Maria Silva</div>
+<div class="font-label-md text-label-md text-on-surface-variant">#PT-8829</div>
+</td>
+<td class="py-4 px-5 font-body-md text-body-md text-on-surface">Knee Arthroplasty</td>
+<td class="py-4 px-5 font-body-md text-body-md text-on-surface-variant">Oct 12, 2023</td>
+<td class="py-4 px-5 font-body-md text-body-md text-on-surface font-medium">$8,500</td>
+<td class="py-4 px-5 text-right">
+<button class="px-3 py-1.5 bg-surface-container-lowest border border-outline-variant rounded font-label-md text-label-md text-on-surface hover:bg-surface-container-low">Generate Bill</button>
+</td>
+</tr>
+<tr class="border-b border-outline-variant/20 hover:bg-surface-container-low/30 transition-colors">
+<td class="py-4 px-5">
+<div class="font-body-md text-body-md font-medium text-on-surface">João Santos</div>
+<div class="font-label-md text-label-md text-on-surface-variant">#PT-9102</div>
+</td>
+<td class="py-4 px-5 font-body-md text-body-md text-on-surface">Appendectomy</td>
+<td class="py-4 px-5 font-body-md text-body-md text-on-surface-variant">Oct 14, 2023</td>
+<td class="py-4 px-5 font-body-md text-body-md text-on-surface font-medium">$3,200</td>
+<td class="py-4 px-5 text-right">
+<button class="px-3 py-1.5 bg-surface-container-lowest border border-outline-variant rounded font-label-md text-label-md text-on-surface hover:bg-surface-container-low">Generate Bill</button>
+</td>
+</tr>
+<tr class="border-b border-outline-variant/20 hover:bg-surface-container-low/30 transition-colors">
+<td class="py-4 px-5">
+<div class="font-body-md text-body-md font-medium text-on-surface">Ana Oliveira</div>
+<div class="font-label-md text-label-md text-on-surface-variant">#PT-7741</div>
+</td>
+<td class="py-4 px-5 font-body-md text-body-md text-on-surface">Cataract Surgery</td>
+<td class="py-4 px-5 font-body-md text-body-md text-on-surface-variant">Oct 15, 2023</td>
+<td class="py-4 px-5 font-body-md text-body-md text-on-surface font-medium">$2,100</td>
+<td class="py-4 px-5 text-right">
+<button class="px-3 py-1.5 bg-surface-container-lowest border border-outline-variant rounded font-label-md text-label-md text-on-surface hover:bg-surface-container-low">Generate Bill</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/30 transition-colors">
+<td class="py-4 px-5">
+<div class="font-body-md text-body-md font-medium text-on-surface">Carlos Mendes</div>
+<div class="font-label-md text-label-md text-on-surface-variant">#PT-6522</div>
+</td>
+<td class="py-4 px-5 font-body-md text-body-md text-on-surface">Hernia Repair</td>
+<td class="py-4 px-5 font-body-md text-body-md text-on-surface-variant">Oct 18, 2023</td>
+<td class="py-4 px-5 font-body-md text-body-md text-on-surface font-medium">$4,600</td>
+<td class="py-4 px-5 text-right">
+<button class="px-3 py-1.5 bg-surface-container-lowest border border-outline-variant rounded font-label-md text-label-md text-on-surface hover:bg-surface-container-low">Generate Bill</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Right Column: Revenue Breakdown (Chart Mockup) -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant/50 p-6 flex flex-col h-full">
+<h3 class="font-title-lg text-title-lg text-on-background mb-1">Revenue by Status</h3>
+<p class="font-label-md text-label-md text-on-surface-variant mb-6">Current Month Distribution</p>
+<div class="flex-1 flex flex-col justify-center gap-6">
+<!-- Minimalist Bar Chart representation -->
+<div class="space-y-4">
+<div>
+<div class="flex justify-between font-label-md text-label-md mb-1">
+<span class="text-on-surface">Billed &amp; Paid</span>
+<span class="font-medium">$42,000</span>
+</div>
+<div class="w-full bg-surface-container-low rounded-full h-2">
+<div class="bg-primary-container h-2 rounded-full" style="width: 60%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between font-label-md text-label-md mb-1">
+<span class="text-on-surface">Awaiting Payment</span>
+<span class="font-medium">$128,400</span>
+</div>
+<div class="w-full bg-surface-container-low rounded-full h-2">
+<div class="bg-secondary h-2 rounded-full" style="width: 85%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between font-label-md text-label-md mb-1">
+<span class="text-on-surface">Pending Billing</span>
+<span class="font-medium">$45,230</span>
+</div>
+<div class="w-full bg-surface-container-low rounded-full h-2">
+<div class="bg-secondary-container h-2 rounded-full" style="width: 40%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between font-label-md text-label-md mb-1">
+<span class="text-on-surface">Denied / Appeals</span>
+<span class="font-medium">$8,500</span>
+</div>
+<div class="w-full bg-surface-container-low rounded-full h-2">
+<div class="bg-error h-2 rounded-full" style="width: 15%"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full bg-surface-container-lowest border-t border-outline-variant shadow-[0_-4px_20px_rgba(15,23,42,0.05)] z-40 pb-safe">
+<ul class="flex justify-around items-center h-16">
+<li class="flex-1">
+<a class="flex flex-col items-center justify-center h-full w-full text-on-surface-variant hover:text-on-surface transition-colors" href="#">
+<span class="material-symbols-outlined text-[24px]">dashboard</span>
+<span class="font-label-md text-[10px] mt-1">Dashboard</span>
+</a>
+</li>
+<li class="flex-1">
+<a class="flex flex-col items-center justify-center h-full w-full text-on-surface-variant hover:text-on-surface transition-colors" href="#">
+<span class="material-symbols-outlined text-[24px]">medical_services</span>
+<span class="font-label-md text-[10px] mt-1">Surgeries</span>
+</a>
+</li>
+<li class="flex-1">
+<div class="relative -top-5 flex justify-center">
+<button class="bg-primary-container text-on-primary-container p-3 rounded-full shadow-md hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-[24px]">add</span>
+</button>
+</div>
+</li>
+<li class="flex-1">
+<a class="flex flex-col items-center justify-center h-full w-full text-on-surface-variant hover:text-on-surface transition-colors" href="#">
+<span class="material-symbols-outlined text-[24px]">verified</span>
+<span class="font-label-md text-[10px] mt-1">Auths</span>
+</a>
+</li>
+<li class="flex-1">
+<a class="flex flex-col items-center justify-center h-full w-full text-secondary font-medium" href="#">
+<span class="material-symbols-outlined fill text-[24px]">analytics</span>
+<span class="font-label-md text-[10px] mt-1">Reports</span>
+</a>
+</li>
+</ul>
+</nav>
+</body></html>
