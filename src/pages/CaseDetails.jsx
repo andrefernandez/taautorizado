@@ -155,6 +155,38 @@ export default function CaseDetails() {
     }
   }
 
+  const handleQuickStatusAndSave = async (newStatus) => {
+    setStatus(newStatus)
+    try {
+      setSaving(true)
+      if (!isOffline) {
+        const { error } = await supabase
+          .from('cases')
+          .update({
+            status: newStatus,
+            proposed_date: proposedDate || null,
+            clinical_summary: clinicalSummary
+          })
+          .eq('id', id)
+
+        if (error) throw error
+      }
+
+      setItem(prev => ({
+        ...prev,
+        status: newStatus
+      }))
+
+      setSaveSuccess(true)
+      setTimeout(() => setSaveSuccess(false), 4000)
+    } catch (e) {
+      console.error(e)
+      alert("Erro ao atualizar status: " + e.message)
+    } finally {
+      setSaving(false)
+    }
+  }
+
   if (loading) {
     return (
       <div className="h-screen flex items-center justify-center bg-background">
@@ -442,15 +474,15 @@ export default function CaseDetails() {
                     </div>
 
                     <div className="flex gap-2 w-full sm:w-auto">
-                      {item.status !== 'Autorizado' ? (
+                      {status !== 'Autorizado' ? (
                         <button
                           type="button"
-                          disabled={updatingStatus}
-                          onClick={() => handleUpdateStatus('Autorizado')}
+                          disabled={saving}
+                          onClick={() => handleQuickStatusAndSave('Autorizado')}
                           className="flex-1 sm:flex-none px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs flex items-center justify-center gap-1 shadow-sm transition-colors"
                         >
                           <span className="material-symbols-outlined text-sm">check_circle</span>
-                          Aprovar Cotação
+                          {saving ? 'Aprovando...' : 'Aprovar Cotação'}
                         </button>
                       ) : (
                         <span className="px-3 py-1.5 rounded-lg bg-emerald-100 text-emerald-900 text-xs font-bold flex items-center gap-1">
