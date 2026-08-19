@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
-import { supabase } from '../supabaseClient'
+import { getPatientById } from '../services/dataService'
 import Sidebar from '../components/Sidebar'
 import BottomNav from '../components/BottomNav'
 
@@ -65,31 +65,7 @@ export default function PatientDetails() {
     const fetchPatientData = async () => {
       try {
         setLoading(true)
-        // 1. Buscar Paciente
-        const { data: pData, error: pErr } = await supabase
-          .from('patients')
-          .select('*')
-          .eq('id', id)
-          .single()
-
-        if (pErr) throw pErr
-
-        // 2. Buscar Pedidos/Casos deste Paciente
-        const { data: cData, error: cErr } = await supabase
-          .from('cases')
-          .select(`
-            id,
-            status,
-            proposed_date,
-            created_at,
-            procedures ( description, code ),
-            hospitals ( name )
-          `)
-          .eq('patient_id', id)
-          .order('created_at', { ascending: false })
-
-        if (cErr) throw cErr
-
+        const { patient: pData, cases: cData } = await getPatientById(id)
         setPatient(pData)
         setPatientCases(cData || [])
         setIsOffline(false)

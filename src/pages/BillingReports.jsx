@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { supabase } from '../supabaseClient'
+import { getBillingCases } from '../services/dataService'
 import Sidebar from '../components/Sidebar'
 import BottomNav from '../components/BottomNav'
 
@@ -34,20 +34,7 @@ export default function BillingReports() {
     const fetchBilling = async () => {
       try {
         setLoading(true)
-        const { data, error } = await supabase
-          .from('cases')
-          .select(`
-            id,
-            status,
-            patients ( name ),
-            hospitals ( name ),
-            procedures ( description ),
-            budget_items ( value, quantity )
-          `)
-          .in('status', ['Autorizado', 'Em Análise'])
-
-        if (error) throw error
-
+        const data = await getBillingCases()
         setItems(data || [])
         setIsOffline(false)
       } catch (e) {

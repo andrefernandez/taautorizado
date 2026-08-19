@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
-import { supabase } from '../supabaseClient'
+import { getHospitalById } from '../services/dataService'
 import Sidebar from '../components/Sidebar'
 import BottomNav from '../components/BottomNav'
 
@@ -88,31 +88,7 @@ export default function HospitalDetails({ role = 'medico' }) {
     const fetchHospitalData = async () => {
       try {
         setLoading(true)
-        // 1. Buscar Hospital
-        const { data: hData, error: hErr } = await supabase
-          .from('hospitals')
-          .select('*')
-          .eq('id', id)
-          .single()
-
-        if (hErr) throw hErr
-
-        // 2. Buscar Casos vinculados a este Hospital
-        const { data: cData, error: cErr } = await supabase
-          .from('cases')
-          .select(`
-            id,
-            status,
-            proposed_date,
-            created_at,
-            patients ( name ),
-            procedures ( description )
-          `)
-          .eq('hospital_id', id)
-          .order('created_at', { ascending: false })
-
-        if (cErr) throw cErr
-
+        const { hospital: hData, cases: cData } = await getHospitalById(id)
         setHospital(hData)
         setHospitalCases(cData || [])
         setIsOffline(false)

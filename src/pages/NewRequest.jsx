@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { supabase } from '../supabaseClient'
+import { getHospitals, getProcedures } from '../services/dataService'
 import Sidebar from '../components/Sidebar'
 import BottomNav from '../components/BottomNav'
 
@@ -41,10 +42,10 @@ export default function NewRequest() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data: hospData, error: hospErr } = await supabase.from('hospitals').select('*')
-        const { data: procData, error: procErr } = await supabase.from('procedures').select('*')
-
-        if (hospErr || procErr) throw new Error("Failed to load options")
+        const [hospData, procData] = await Promise.all([
+          getHospitals(),
+          getProcedures()
+        ])
 
         setHospitals(hospData || [])
         setProcedures(procData || [])

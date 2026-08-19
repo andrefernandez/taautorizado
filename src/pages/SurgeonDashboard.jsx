@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { supabase } from '../supabaseClient'
+import { getCases } from '../services/dataService'
 import Sidebar from '../components/Sidebar'
 import BottomNav from '../components/BottomNav'
 
@@ -63,21 +63,7 @@ export default function SurgeonDashboard() {
   const fetchCases = async () => {
     try {
       setLoading(true)
-      const { data, error } = await supabase
-        .from('cases')
-        .select(`
-          id,
-          status,
-          proposed_date,
-          created_at,
-          patients ( name ),
-          procedures ( description ),
-          hospitals ( name )
-        `)
-        .order('created_at', { ascending: false })
-
-      if (error) throw error
-
+      const data = await getCases()
       setCases(data || [])
       setIsOffline(false)
     } catch (e) {

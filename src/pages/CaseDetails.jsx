@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import { supabase } from '../supabaseClient'
+import { getCaseById } from '../services/dataService'
 import Sidebar from '../components/Sidebar'
 import BottomNav from '../components/BottomNav'
 
@@ -78,23 +79,7 @@ export default function CaseDetails() {
     const fetchCaseDetails = async () => {
       try {
         setLoading(true)
-        const { data, error } = await supabase
-          .from('cases')
-          .select(`
-            id,
-            status,
-            proposed_date,
-            clinical_summary,
-            created_at,
-            patients ( name, birth_date, cpf, insurance ),
-            procedures ( description, code ),
-            hospitals ( name ),
-            budget_items ( id, name, quantity, value, provider )
-          `)
-          .eq('id', id)
-          .single()
-
-        if (error) throw error
+        const data = await getCaseById(id)
         setItem(data)
         setIsOffline(false)
       } catch (e) {

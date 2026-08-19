@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { supabase } from '../supabaseClient'
+import { getHospitals } from '../services/dataService'
 import Sidebar from '../components/Sidebar'
 import BottomNav from '../components/BottomNav'
 
@@ -43,8 +44,7 @@ export default function CadastrosManager({ role = 'medico' }) {
     const fetchHospitals = async () => {
       try {
         setLoading(true)
-        const { data, error } = await supabase.from('hospitals').select('*').order('name', { ascending: true })
-        if (error) throw error
+        const data = await getHospitals()
         setHospitals(data || [])
         setIsOffline(false)
       } catch (e) {

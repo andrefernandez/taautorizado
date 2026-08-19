@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import { supabase } from '../supabaseClient'
+import { getCaseById } from '../services/dataService'
 import Sidebar from '../components/Sidebar'
 import BottomNav from '../components/BottomNav'
 
@@ -34,21 +35,7 @@ export default function BudgetManagement() {
     const fetchCase = async () => {
       try {
         setLoading(true)
-        const { data, error } = await supabase
-          .from('cases')
-          .select(`
-            id,
-            status,
-            proposed_date,
-            clinical_summary,
-            patients ( name, insurance ),
-            procedures ( description, code ),
-            hospitals ( name )
-          `)
-          .eq('id', id)
-          .single()
-
-        if (error) throw error
+        const data = await getCaseById(id)
         setItem(data)
         setIsOffline(false)
       } catch (e) {
