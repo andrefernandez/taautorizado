@@ -300,12 +300,23 @@ export default function BudgetManagement() {
               </h3>
               <div className="space-y-3 text-body-md">
                 <div>
+                  <span className="block text-xs text-on-surface-variant font-medium">Cirurgião Solicitante</span>
+                  <span className="font-bold text-on-background flex items-center gap-1">
+                    <span className="material-symbols-outlined text-secondary text-sm">person</span>
+                    {item.doctor_name || 'Dr. Carlos Silva'}
+                  </span>
+                </div>
+                <div>
                   <span className="block text-xs text-on-surface-variant font-medium">Paciente</span>
                   <span className="font-semibold text-on-background">{item.patients?.name}</span>
                 </div>
                 <div>
-                  <span className="block text-xs text-on-surface-variant font-medium">Convênio</span>
-                  <span className="font-semibold text-on-background">{item.patients?.insurance}</span>
+                  <span className="block text-xs text-on-surface-variant font-medium">Convênio / Operadora</span>
+                  <span className="font-semibold text-on-background">{item.insurance || item.patients?.insurance || 'Bradesco Saúde'}</span>
+                </div>
+                <div>
+                  <span className="block text-xs text-on-surface-variant font-medium">Fornecedor Indicado</span>
+                  <span className="font-semibold text-xs text-on-background">{item.supplier_indicated || 'OPME Sul Distribuidora'}</span>
                 </div>
                 <div>
                   <span className="block text-xs text-on-surface-variant font-medium">Procedimento</span>

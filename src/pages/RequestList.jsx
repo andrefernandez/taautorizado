@@ -11,6 +11,9 @@ const OFFLINE_CASES = [
     status: 'Em Análise',
     proposed_date: '2026-11-05',
     patients: { id: 'f3b07384-d113-4b0d-9fae-9d229a320001', name: 'Mariana Santos', insurance: 'Bradesco Saúde' },
+    insurance: 'Bradesco Saúde',
+    supplier_indicated: 'OPME Sul Distribuidora',
+    supplier_authorized: 'Aguardando Regulação',
     procedures: { description: 'Cirurgia Ortognática', code: '30205012' },
     hospitals: { name: 'Hospital Sírio-Libanês' },
     created_at: new Date().toISOString()
@@ -20,6 +23,9 @@ const OFFLINE_CASES = [
     status: 'Autorizado',
     proposed_date: '2026-10-15',
     patients: { id: 'f3b07384-d113-4b0d-9fae-9d229a320002', name: 'Carlos Oliveira', insurance: 'SulAmérica' },
+    insurance: 'SulAmérica',
+    supplier_indicated: 'OrtoPrime Hospitalar',
+    supplier_authorized: 'OrtoPrime Hospitalar',
     procedures: { description: 'Artroplastia de Joelho', code: '30725113' },
     hospitals: { name: 'Hospital Albert Einstein' },
     created_at: new Date(Date.now() - 86400000).toISOString()
@@ -29,6 +35,9 @@ const OFFLINE_CASES = [
     status: 'Pendente Docs',
     proposed_date: '2026-11-12',
     patients: { id: 'f3b07384-d113-4b0d-9fae-9d229a320003', name: 'Ana Lúcia Ferreira', insurance: 'Amil' },
+    insurance: 'Amil',
+    supplier_indicated: 'MedImplantes Brasil',
+    supplier_authorized: 'Aguardando Docs',
     procedures: { description: 'Rinoplastia Estruturada', code: '30101292' },
     hospitals: { name: 'Clínica São José' },
     created_at: new Date(Date.now() - 86400000 * 2).toISOString()
@@ -38,6 +47,9 @@ const OFFLINE_CASES = [
     status: 'Negado',
     proposed_date: '2026-09-20',
     patients: { id: 'f3b07384-d113-4b0d-9fae-9d229a320004', name: 'Ricardo Souza', insurance: 'Unimed Seguros' },
+    insurance: 'Unimed Seguros',
+    supplier_indicated: 'Surgical Direct',
+    supplier_authorized: 'Não Autorizado',
     procedures: { description: 'Herniorrafia Inguinal', code: '31002390' },
     hospitals: { name: 'Hospital Moinhos de Vento' },
     created_at: '2026-08-12T10:00:00Z'
@@ -47,6 +59,9 @@ const OFFLINE_CASES = [
     status: 'Aguardando Orçamento',
     proposed_date: '2026-10-25',
     patients: { id: 'f3b07384-d113-4b0d-9fae-9d229a320005', name: 'Fernanda Mendes', insurance: 'Bradesco Saúde' },
+    insurance: 'Bradesco Saúde',
+    supplier_indicated: 'OPME Sul Distribuidora',
+    supplier_authorized: 'Pendente Cotação',
     procedures: { description: 'Colecistectomia', code: '31001016' },
     hospitals: { name: 'Hospital Samaritano' },
     created_at: '2026-08-10T10:00:00Z'
@@ -60,7 +75,6 @@ export default function RequestList() {
   const [search, setSearch] = useState('')
   const [statusFilter, setStatusFilter] = useState('Todos')
   const [isOffline, setIsOffline] = useState(false)
-  const [updatingId, setUpdatingId] = useState(null)
 
   const fetchCases = async () => {
     try {
@@ -77,28 +91,6 @@ export default function RequestList() {
     }
   }
 
-  const handleUpdateCaseStatus = async (caseId, newStatus, e) => {
-    e.stopPropagation()
-    try {
-      setUpdatingId(caseId)
-      if (!isOffline) {
-        const { error } = await supabase
-          .from('cases')
-          .update({ status: newStatus })
-          .eq('id', caseId)
-
-        if (error) throw error
-      }
-
-      setCases(prev => prev.map(c => c.id === caseId ? { ...c, status: newStatus } : c))
-    } catch (err) {
-      console.error(err)
-      alert("Erro ao alterar status: " + err.message)
-    } finally {
-      setUpdatingId(null)
-    }
-  }
-
   useEffect(() => {
     fetchCases()
   }, [])
@@ -109,7 +101,9 @@ export default function RequestList() {
       (c.procedures?.description || '').toLowerCase().includes(search.toLowerCase()) ||
       (c.procedures?.code || '').includes(search) ||
       (c.hospitals?.name || '').toLowerCase().includes(search.toLowerCase()) ||
-      (c.patients?.insurance || '').toLowerCase().includes(search.toLowerCase())
+      (c.insurance || c.patients?.insurance || '').toLowerCase().includes(search.toLowerCase()) ||
+      (c.supplier_indicated || '').toLowerCase().includes(search.toLowerCase()) ||
+      (c.supplier_authorized || '').toLowerCase().includes(search.toLowerCase())
 
     const matchesStatus = statusFilter === 'Todos' || c.status === statusFilter
 
@@ -129,6 +123,16 @@ export default function RequestList() {
       default:
         return 'bg-purple-100 text-purple-900 border border-purple-300'
     }
+  }
+
+  const getSupplierBadge = (auth) => {
+    if (!auth || auth.includes('Aguardando') || auth.includes('Pendente')) {
+      return 'bg-amber-50 text-amber-800 border border-amber-200'
+    }
+    if (auth.includes('Não')) {
+      return 'bg-rose-50 text-rose-800 border border-rose-200'
+    }
+    return 'bg-emerald-50 text-emerald-800 border border-emerald-200 font-semibold'
   }
 
   return (
@@ -151,7 +155,7 @@ export default function RequestList() {
             </div>
             <div>
               <h2 className="font-headline-md text-headline-md text-on-background font-black">Minhas Solicitações Cirúrgicas</h2>
-              <p className="font-body-md text-body-md text-on-surface-variant mt-0.5">Lista completa e detalhada de todos os pedidos cadastrados.</p>
+              <p className="font-body-md text-body-md text-on-surface-variant mt-0.5">Lista completa com convênios e distribuidores de OPME.</p>
             </div>
           </div>
 
@@ -197,7 +201,7 @@ export default function RequestList() {
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   className="w-full pl-10 pr-4 py-2 bg-background rounded-lg border border-outline-variant text-body-md text-on-background focus:outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all h-10"
-                  placeholder="Buscar paciente, procedimento, hospital..."
+                  placeholder="Buscar paciente, convênio, fornecedor..."
                 />
               </div>
 
@@ -217,14 +221,16 @@ export default function RequestList() {
               </div>
             ) : (
               <div className="overflow-x-auto flex-1">
-                <table className="w-full text-left border-collapse min-w-[900px]">
+                <table className="w-full text-left border-collapse min-w-[1100px]">
                   <thead>
                     <tr className="bg-surface font-label-md text-label-md text-on-surface-variant border-b border-outline-variant/65">
                       <th className="px-6 py-4 font-semibold uppercase tracking-wider">Paciente</th>
-                      <th className="px-6 py-4 font-semibold uppercase tracking-wider">Procedimento (TUSS)</th>
-                      <th className="px-6 py-4 font-semibold uppercase tracking-wider">Hospital / Convênio</th>
-                      <th className="px-6 py-4 font-semibold uppercase tracking-wider">Data Proposta</th>
-                      <th className="px-6 py-4 font-semibold uppercase tracking-wider">Status</th>
+                      <th className="px-5 py-4 font-semibold uppercase tracking-wider">Convênio</th>
+                      <th className="px-5 py-4 font-semibold uppercase tracking-wider">Procedimento (TUSS)</th>
+                      <th className="px-5 py-4 font-semibold uppercase tracking-wider">Fornecedor Indicado</th>
+                      <th className="px-5 py-4 font-semibold uppercase tracking-wider">Fornecedor Autorizado</th>
+                      <th className="px-5 py-4 font-semibold uppercase tracking-wider">Data Proposta</th>
+                      <th className="px-5 py-4 font-semibold uppercase tracking-wider">Status</th>
                       <th className="px-6 py-4 font-semibold uppercase tracking-wider text-right">Ação</th>
                     </tr>
                   </thead>
@@ -243,25 +249,53 @@ export default function RequestList() {
                           >
                             {c.patients?.name || 'Sem nome'}
                           </Link>
-                          <span className="text-xs text-on-surface-variant font-medium">{c.patients?.insurance}</span>
+                          <span className="text-xs text-on-surface-variant font-medium">{c.hospitals?.name}</span>
                         </td>
-                        <td className="px-6 py-4">
+
+                        {/* Convênio */}
+                        <td className="px-5 py-4">
+                          <span className="inline-flex items-center gap-1 font-semibold text-xs text-on-background bg-surface-container px-2.5 py-1 rounded-md border border-outline-variant/30">
+                            <span className="material-symbols-outlined text-[14px] text-secondary">health_and_safety</span>
+                            {c.insurance || c.patients?.insurance || 'Bradesco Saúde'}
+                          </span>
+                        </td>
+
+                        {/* Procedimento */}
+                        <td className="px-5 py-4">
                           <span className="font-semibold text-on-background block">{c.procedures?.description || 'Não especificado'}</span>
                           {c.procedures?.code && (
                             <span className="text-xs font-mono text-on-surface-variant">TUSS: {c.procedures?.code}</span>
                           )}
                         </td>
-                        <td className="px-6 py-4 text-on-surface-variant font-medium">
-                          {c.hospitals?.name || 'Não especificado'}
+
+                        {/* Fornecedor Indicado */}
+                        <td className="px-5 py-4 text-xs font-semibold text-on-surface-variant">
+                          <div className="flex items-center gap-1.5">
+                            <span className="material-symbols-outlined text-sm text-secondary">local_shipping</span>
+                            <span>{c.supplier_indicated || 'OPME Sul Distribuidora'}</span>
+                          </div>
                         </td>
-                        <td className="px-6 py-4 text-on-surface-variant">
+
+                        {/* Fornecedor Autorizado */}
+                        <td className="px-5 py-4">
+                          <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-medium ${getSupplierBadge(c.supplier_authorized)}`}>
+                            {c.supplier_authorized || 'Aguardando Regulação'}
+                          </span>
+                        </td>
+
+                        {/* Data Proposta */}
+                        <td className="px-5 py-4 text-on-surface-variant text-xs font-medium">
                           {c.proposed_date ? new Date(c.proposed_date).toLocaleDateString('pt-BR') : 'A agendar'}
                         </td>
-                        <td className="px-6 py-4">
+
+                        {/* Status */}
+                        <td className="px-5 py-4">
                           <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold ${getStatusBadge(c.status)}`}>
                             {c.status}
                           </span>
                         </td>
+
+                        {/* Ação */}
                         <td className="px-6 py-4 text-right">
                           <Link 
                             to={`/medico/caso/${c.id}`}
@@ -287,3 +321,4 @@ export default function RequestList() {
     </div>
   )
 }
+

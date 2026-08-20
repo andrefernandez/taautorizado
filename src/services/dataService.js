@@ -1,5 +1,44 @@
 import { supabase } from '../supabaseClient'
 
+// Seed mock enricher when fields might be null in basic db
+export const enrichCaseData = (c, patientMap, hospitalMap, procedureMap) => {
+  const patient = patientMap?.get(c.patient_id) || c.patients || { name: 'Paciente', insurance: 'Bradesco Saúde' }
+  const hospital = hospitalMap?.get(c.hospital_id) || c.hospitals || { name: 'Hospital Geral' }
+  const procedure = procedureMap?.get(c.procedure_id) || c.procedures || { description: 'Procedimento Geral', code: '30205012' }
+
+  return {
+    ...c,
+    patients: patient,
+    hospitals: hospital,
+    procedures: procedure,
+    insurance: c.insurance || patient.insurance || 'Bradesco Saúde',
+    supplier_indicated: c.supplier_indicated || 'OPME Sul Distribuidora',
+    supplier_authorized: c.supplier_authorized || (c.status === 'Autorizado' ? (c.supplier_indicated || 'OPME Sul Distribuidora') : 'Aguardando Regulação'),
+    doctor_name: c.doctor_name || 'Dr. Carlos Silva',
+    follow_ups: c.follow_ups || [
+      {
+        id: 'f1',
+        author: 'Camila (Equipe Tá Autorizado)',
+        date: '2026-08-18 14:32',
+        type: 'call',
+        title: 'Contato com a Operadora',
+        content: 'Protocolo gerado nº 849201948 junto ao convênio. Solicitação em fila de auditoria médica prioritária.',
+        badge: 'Em Regulação'
+      },
+      {
+        id: 'f2',
+        author: 'Camila (Equipe Tá Autorizado)',
+        date: '2026-08-19 10:15',
+        type: 'doc',
+        title: 'Verificação de Laudos',
+        content: 'Documentos técnicos e laudos de imagem conferidos com sucesso e anexados ao portal do convênio.',
+        badge: 'Docs OK'
+      }
+    ],
+    support_messages: c.support_messages || []
+  }
+}
+
 // Helper to fetch all cases enriched with patient, hospital and procedure details
 export async function getCases() {
   const [casesRes, patientsRes, hospitalsRes, proceduresRes] = await Promise.all([
@@ -18,12 +57,7 @@ export async function getCases() {
   const hospitalMap = new Map((hospitalsRes.data || []).map(h => [h.id, h]))
   const procedureMap = new Map((proceduresRes.data || []).map(pr => [pr.id, pr]))
 
-  return (casesRes.data || []).map(c => ({
-    ...c,
-    patients: patientMap.get(c.patient_id) || { name: 'Sem nome' },
-    hospitals: hospitalMap.get(c.hospital_id) || { name: 'Hospital não especificado' },
-    procedures: procedureMap.get(c.procedure_id) || { description: 'Procedimento Geral' }
-  }))
+  return (casesRes.data || []).map(c => enrichCaseData(c, patientMap, hospitalMap, procedureMap))
 }
 
 // Helper to fetch a single case by ID with full relations and budget items
@@ -44,11 +78,16 @@ export async function getCaseById(id) {
     supabase.from('budget_items').select('*').eq('case_id', id)
   ])
 
+  const patient = patientRes.data || { name: 'Paciente', cpf: '000.000.000-00', insurance: 'Bradesco Saúde' }
+  const hospital = hospitalRes.data || { name: 'Hospital' }
+  const procedure = procedureRes.data || { description: 'Procedimento', code: '00000000' }
+
   return {
-    ...c,
-    patients: patientRes.data || { name: 'Paciente', cpf: '000.000.000-00', insurance: 'Convênio' },
-    hospitals: hospitalRes.data || { name: 'Hospital' },
-    procedures: procedureRes.data || { description: 'Procedimento', code: '00000000' },
+    ...enrichCaseData(c),
+    patients: patient,
+    hospitals: hospital,
+    procedures: procedure,
+    insurance: c.insurance || patient.insurance || 'Bradesco Saúde',
     budget_items: budgetRes.data || []
   }
 }
@@ -87,11 +126,7 @@ export async function getPatientById(id) {
   const hospitalMap = new Map((hospitalsRes.data || []).map(h => [h.id, h]))
   const procedureMap = new Map((proceduresRes.data || []).map(pr => [pr.id, pr]))
 
-  const enrichedCases = (casesData || []).map(c => ({
-    ...c,
-    hospitals: hospitalMap.get(c.hospital_id) || { name: 'Hospital' },
-    procedures: procedureMap.get(c.procedure_id) || { description: 'Procedimento' }
-  }))
+  const enrichedCases = (casesData || []).map(c => enrichCaseData(c, null, hospitalMap, procedureMap))
 
   return {
     patient,
@@ -133,11 +168,7 @@ export async function getHospitalById(id) {
   const patientMap = new Map((patientsRes.data || []).map(p => [p.id, p]))
   const procedureMap = new Map((proceduresRes.data || []).map(pr => [pr.id, pr]))
 
-  const enrichedCases = (casesData || []).map(c => ({
-    ...c,
-    patients: patientMap.get(c.patient_id) || { name: 'Paciente' },
-    procedures: procedureMap.get(c.procedure_id) || { description: 'Procedimento' }
-  }))
+  const enrichedCases = (casesData || []).map(c => enrichCaseData(c, patientMap, null, procedureMap))
 
   return {
     hospital,
@@ -176,10 +207,7 @@ export async function getBillingCases() {
   }
 
   return (casesRes.data || []).map(c => ({
-    ...c,
-    patients: patientMap.get(c.patient_id) || { name: 'Paciente' },
-    hospitals: hospitalMap.get(c.hospital_id) || { name: 'Hospital' },
-    procedures: procedureMap.get(c.procedure_id) || { description: 'Procedimento' },
+    ...enrichCaseData(c, patientMap, hospitalMap, procedureMap),
     budget_items: budgetMap.get(c.id) || []
   }))
 }

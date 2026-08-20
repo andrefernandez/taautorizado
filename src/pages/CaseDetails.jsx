@@ -10,10 +10,33 @@ const OFFLINE_CASES = {
     id: 'a3b07384-d113-4b0d-9fae-9d229a320001',
     status: 'Em Análise',
     proposed_date: '2026-11-05',
+    insurance: 'Bradesco Saúde',
+    supplier_indicated: 'OPME Sul Distribuidora',
+    supplier_authorized: 'Aguardando Regulação',
     clinical_summary: 'Paciente apresenta má oclusão esquelética Classe III severa, necessitando de intervenção cirúrgica ortognática bimaxilar para reestabelecer oclusão funcional e aliviar sobrecarga na ATM.',
     patients: { name: 'Mariana Santos', birth_date: '1985-05-14', cpf: '111.111.111-11', insurance: 'Bradesco Saúde' },
     procedures: { description: 'Cirurgia Ortognática', code: '30205012' },
     hospitals: { name: 'Hospital Sírio-Libanês' },
+    follow_ups: [
+      {
+        id: '1',
+        author: 'Camila (Equipe Tá Autorizado)',
+        date: '20/08/2026 às 14:35',
+        type: 'call',
+        title: 'Ligação e Cobrança no Convênio Bradesco',
+        content: 'Protocolo nº 99401202 gerado. Contatamos o setor de auditoria médica e cobramos celeridade pois a data cirúrgica está próxima. O auditor prometeu parecer em 48h úteis.',
+        badge: 'Em Auditoria'
+      },
+      {
+        id: '2',
+        author: 'Camila (Equipe Tá Autorizado)',
+        date: '19/08/2026 às 11:10',
+        type: 'doc',
+        title: 'Envio dos Laudos Complementares e Imagens',
+        content: 'Conferimos os cortes tomográficos e o laudo assinado pelo Dr. Silva e submetemos no portal do convênio com sucesso.',
+        badge: 'Docs Entregues'
+      }
+    ],
     budget_items: [
       { id: '1', name: 'Placa Ortognática 2.0mm', quantity: 4, value: 1200.00, provider: 'OPME Sul Distribuidora' },
       { id: '2', name: 'Parafuso de Fixação 2.0mm', quantity: 16, value: 150.00, provider: 'OPME Sul Distribuidora' }
@@ -23,10 +46,24 @@ const OFFLINE_CASES = {
     id: 'a3b07384-d113-4b0d-9fae-9d229a320002',
     status: 'Autorizado',
     proposed_date: '2026-10-15',
+    insurance: 'SulAmérica',
+    supplier_indicated: 'OrtoPrime Hospitalar',
+    supplier_authorized: 'OrtoPrime Hospitalar',
     clinical_summary: 'Paciente com osteoartrose severa de joelho direito, indicada artroplastia total secundária para alívio de dor limitante e melhora funcional da marcha.',
     patients: { name: 'Carlos Oliveira', birth_date: '1972-08-22', cpf: '222.222.222-22', insurance: 'SulAmérica' },
     procedures: { description: 'Artroplastia de Joelho', code: '30725113' },
     hospitals: { name: 'Hospital Albert Einstein' },
+    follow_ups: [
+      {
+        id: '1',
+        author: 'Camila (Equipe Tá Autorizado)',
+        date: '19/08/2026 às 16:20',
+        type: 'success',
+        title: 'Autorização Concluída & Emitida',
+        content: 'Guia de autorização nº SA-849102 liberada com 100% dos materiais da OrtoPrime aprovados. Cirurgia confirmada para 15/10/2026.',
+        badge: '100% Autorizado'
+      }
+    ],
     budget_items: [
       { id: '3', name: 'Prótese Total de Joelho Primária', quantity: 1, value: 8500.00, provider: 'OrtoPrime Hospitalar' }
     ]
@@ -35,10 +72,24 @@ const OFFLINE_CASES = {
     id: 'a3b07384-d113-4b0d-9fae-9d229a320003',
     status: 'Pendente Docs',
     proposed_date: '2026-11-12',
+    insurance: 'Amil',
+    supplier_indicated: 'MedImplantes Brasil',
+    supplier_authorized: 'Aguardando Docs',
     clinical_summary: 'Desvio de septo obstrutivo grave associado a deformidade piramidal nasal pós-traumática.',
     patients: { name: 'Ana Lúcia Ferreira', birth_date: '1990-11-05', cpf: '333.333.333-33', insurance: 'Amil' },
     procedures: { description: 'Rinoplastia Estruturada', code: '30101292' },
     hospitals: { name: 'Clínica São José' },
+    follow_ups: [
+      {
+        id: '1',
+        author: 'Camila (Equipe Tá Autorizado)',
+        date: '18/08/2026 às 14:00',
+        type: 'warning',
+        title: 'Pendência Solicitada pela Auditoria Amil',
+        content: 'A auditoria médica do convênio solicitou exame de tomografia computadorizada com laudo descritivo detalhando o desvio obstrutivo.',
+        badge: 'Pendente Exame'
+      }
+    ],
     budget_items: [
       { id: '4', name: 'Enxerto de Cartilagem / Lâmina Foco', quantity: 1, value: 2100.00, provider: 'MedImplantes Brasil' }
     ]
@@ -47,10 +98,24 @@ const OFFLINE_CASES = {
     id: 'a3b07384-d113-4b0d-9fae-9d229a320004',
     status: 'Negado',
     proposed_date: '2026-09-20',
+    insurance: 'Unimed Seguros',
+    supplier_indicated: 'Surgical Direct',
+    supplier_authorized: 'Não Autorizado',
     clinical_summary: 'Hérnia inguinal bilateral com desconforto moderado aos esforços físicos.',
     patients: { name: 'Ricardo Souza', birth_date: '1965-03-30', cpf: '444.444.444-44', insurance: 'Unimed Seguros' },
     procedures: { description: 'Herniorrafia Inguinal', code: '31002390' },
     hospitals: { name: 'Hospital Moinhos de Vento' },
+    follow_ups: [
+      {
+        id: '1',
+        author: 'Camila (Equipe Tá Autorizado)',
+        date: '15/08/2026 às 09:30',
+        type: 'error',
+        title: 'Negativa de Cobertura da Operadora',
+        content: 'Motivo: Carência para doenças pré-existentes alegada pela Unimed. Nossa equipe jurídica/médica já está preparando a contestação formal.',
+        badge: 'Recurso em Aberto'
+      }
+    ],
     budget_items: [
       { id: '5', name: 'Tela de Polipropileno 15x15cm', quantity: 2, value: 450.00, provider: 'Surgical Direct' }
     ]
@@ -59,10 +124,24 @@ const OFFLINE_CASES = {
     id: 'a3b07384-d113-4b0d-9fae-9d229a320005',
     status: 'Aguardando Orçamento',
     proposed_date: '2026-10-25',
+    insurance: 'Bradesco Saúde',
+    supplier_indicated: 'OPME Sul Distribuidora',
+    supplier_authorized: 'Pendente Cotação',
     clinical_summary: 'Colecistopatia calculosa crônica sintomática. Solicitado kit cirúrgico de videolaparoscopia.',
     patients: { name: 'Fernanda Mendes', birth_date: '1988-02-18', cpf: '555.555.555-55', insurance: 'Bradesco Saúde' },
     procedures: { description: 'Colecistectomia', code: '31001016' },
     hospitals: { name: 'Hospital Samaritano' },
+    follow_ups: [
+      {
+        id: '1',
+        author: 'Camila (Equipe Tá Autorizado)',
+        date: '17/08/2026 às 15:10',
+        type: 'info',
+        title: 'Cotações Solicitadas aos Distribuidores',
+        content: 'Caso disparado para os fornecedores de OPME credenciados. Aguardando inserção dos preços e marcas dos grampeadores/trocartes.',
+        badge: 'Cotação Aberta'
+      }
+    ],
     budget_items: []
   }
 }
@@ -80,6 +159,20 @@ export default function CaseDetails() {
   const [status, setStatus] = useState('')
   const [proposedDate, setProposedDate] = useState('')
   const [clinicalSummary, setClinicalSummary] = useState('')
+  const [supplierIndicated, setSupplierIndicated] = useState('')
+  const [supplierAuthorized, setSupplierAuthorized] = useState('')
+
+  // Follow-up notes list & new note creation
+  const [followUps, setFollowUps] = useState([])
+  const [newFollowUpNote, setNewFollowUpNote] = useState('')
+  const [newFollowUpTitle, setNewFollowUpTitle] = useState('')
+  const [isAddingFollowUp, setIsAddingFollowUp] = useState(false)
+
+  // Quick Support message by Doctor
+  const [quickCommOpen, setQuickCommOpen] = useState(false)
+  const [quickActionType, setQuickActionType] = useState('call_insurance')
+  const [quickActionDetails, setQuickActionDetails] = useState('')
+  const [commFeedback, setCommFeedback] = useState('')
 
   useEffect(() => {
     const fetchCaseDetails = async () => {
@@ -90,6 +183,9 @@ export default function CaseDetails() {
         setStatus(data.status || 'Em Análise')
         setProposedDate(data.proposed_date ? data.proposed_date.split('T')[0] : '')
         setClinicalSummary(data.clinical_summary || '')
+        setSupplierIndicated(data.supplier_indicated || 'OPME Sul Distribuidora')
+        setSupplierAuthorized(data.supplier_authorized || 'Aguardando Regulação')
+        setFollowUps(data.follow_ups || [])
         setIsOffline(false)
       } catch (e) {
         console.warn("Utilizando detalhes offline para o caso:", id)
@@ -97,16 +193,33 @@ export default function CaseDetails() {
           id: id,
           status: 'Aguardando Orçamento',
           proposed_date: '2026-10-25',
+          insurance: 'Bradesco Saúde',
+          supplier_indicated: 'OPME Sul Distribuidora',
+          supplier_authorized: 'Aguardando Regulação',
           clinical_summary: 'Caso de teste cirúrgico registrado.',
           patients: { name: 'Paciente Cadastrado', birth_date: '1988-02-18', cpf: '000.000.000-00', insurance: 'Bradesco Saúde' },
           procedures: { description: 'Procedimento Cirúrgico', code: '00000000' },
           hospitals: { name: 'Hospital Geral' },
+          follow_ups: [
+            {
+              id: '1',
+              author: 'Camila (Equipe Tá Autorizado)',
+              date: '20/08/2026 às 10:00',
+              type: 'info',
+              title: 'Caso Recepcionado pela Equipe',
+              content: 'Documentos e exames cadastrados. Iniciando procedimentos regulatórios.',
+              badge: 'Início'
+            }
+          ],
           budget_items: []
         }
         setItem(offlineData)
         setStatus(offlineData.status || 'Em Análise')
         setProposedDate(offlineData.proposed_date ? offlineData.proposed_date.split('T')[0] : '')
         setClinicalSummary(offlineData.clinical_summary || '')
+        setSupplierIndicated(offlineData.supplier_indicated || 'OPME Sul Distribuidora')
+        setSupplierAuthorized(offlineData.supplier_authorized || 'Aguardando Regulação')
+        setFollowUps(offlineData.follow_ups || [])
         setIsOffline(true)
       } finally {
         setLoading(false)
@@ -118,7 +231,9 @@ export default function CaseDetails() {
   const isDirty = item && (
     status !== (item.status || '') ||
     proposedDate !== (item.proposed_date ? item.proposed_date.split('T')[0] : '') ||
-    clinicalSummary !== (item.clinical_summary || '')
+    clinicalSummary !== (item.clinical_summary || '') ||
+    supplierIndicated !== (item.supplier_indicated || '') ||
+    supplierAuthorized !== (item.supplier_authorized || '')
   )
 
   const handleSave = async () => {
@@ -131,7 +246,9 @@ export default function CaseDetails() {
           .update({
             status: status,
             proposed_date: proposedDate || null,
-            clinical_summary: clinicalSummary
+            clinical_summary: clinicalSummary,
+            supplier_indicated: supplierIndicated,
+            supplier_authorized: supplierAuthorized
           })
           .eq('id', id)
 
@@ -142,7 +259,9 @@ export default function CaseDetails() {
         ...prev,
         status: status,
         proposed_date: proposedDate || null,
-        clinical_summary: clinicalSummary
+        clinical_summary: clinicalSummary,
+        supplier_indicated: supplierIndicated,
+        supplier_authorized: supplierAuthorized
       }))
 
       setSaveSuccess(true)
@@ -155,36 +274,52 @@ export default function CaseDetails() {
     }
   }
 
-  const handleQuickStatusAndSave = async (newStatus) => {
-    setStatus(newStatus)
-    try {
-      setSaving(true)
-      if (!isOffline) {
-        const { error } = await supabase
-          .from('cases')
-          .update({
-            status: newStatus,
-            proposed_date: proposedDate || null,
-            clinical_summary: clinicalSummary
-          })
-          .eq('id', id)
+  // Add Follow-up Note by Camila / Team
+  const handleAddFollowUp = (e) => {
+    e.preventDefault()
+    if (!newFollowUpNote) return
 
-        if (error) throw error
-      }
-
-      setItem(prev => ({
-        ...prev,
-        status: newStatus
-      }))
-
-      setSaveSuccess(true)
-      setTimeout(() => setSaveSuccess(false), 4000)
-    } catch (e) {
-      console.error(e)
-      alert("Erro ao atualizar status: " + e.message)
-    } finally {
-      setSaving(false)
+    const newEntry = {
+      id: Date.now().toString(),
+      author: 'Camila (Equipe Tá Autorizado)',
+      date: new Date().toLocaleDateString('pt-BR') + ' às ' + new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
+      type: 'info',
+      title: newFollowUpTitle || 'Atualização Operacional',
+      content: newFollowUpNote,
+      badge: 'Novo Follow-up'
     }
+
+    setFollowUps([newEntry, ...followUps])
+    setNewFollowUpTitle('')
+    setNewFollowUpNote('')
+    setIsAddingFollowUp(false)
+  }
+
+  // Doctor Quick Support Communication Handler
+  const handleSendQuickCommunication = (e) => {
+    e.preventDefault()
+    const actionLabels = {
+      call_insurance: '📞 Solicitação: Ligar no convênio com urgência',
+      patient_cancel: '⚠️ Paciente quer desistir / reagendar',
+      priority_review: '⚡ Cobrar retorno prioritário de auditoria',
+      other: '💬 Mensagem do Cirurgião'
+    }
+
+    const newFollowUpFromDoctor = {
+      id: Date.now().toString(),
+      author: 'Dr. Silva (Cirurgião Solicitante)',
+      date: new Date().toLocaleDateString('pt-BR') + ' às ' + new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
+      type: 'warning',
+      title: actionLabels[quickActionType] || 'Chamado do Médico',
+      content: quickActionDetails || actionLabels[quickActionType],
+      badge: 'Chamado Aberto'
+    }
+
+    setFollowUps([newFollowUpFromDoctor, ...followUps])
+    setCommFeedback('Sua solicitação foi repassada para a Camila e registrada no histórico!')
+    setQuickCommOpen(false)
+    setQuickActionDetails('')
+    setTimeout(() => setCommFeedback(''), 5000)
   }
 
   if (loading) {
@@ -220,32 +355,19 @@ export default function CaseDetails() {
     return Math.abs(ageDate.getUTCFullYear() - 1970)
   }
 
-  const timelineSteps = [
-    { label: 'Documentos Recebidos', active: true, desc: 'Guia e exames carregados' },
-    { 
-      label: 'Cotação de OPME', 
-      active: status !== 'Aguardando Orçamento', 
-      desc: status === 'Aguardando Orçamento' ? 'Pendente pelo distribuidor' : 'Orçamento recebido' 
-    },
-    { 
-      label: 'Em Análise', 
-      active: ['Em Análise', 'Autorizado', 'Pendente Docs', 'Negado'].includes(status), 
-      desc: status === 'Pendente Docs' ? 'Pendente documentação' : 'Análise técnica da operadora' 
-    },
-    { 
-      label: status === 'Negado' ? 'Negado' : 'Autorizado', 
-      active: ['Autorizado', 'Negado'].includes(status),
-      isEnd: true, 
-      desc: status === 'Autorizado' ? 'Procedimento liberado!' : status === 'Negado' ? 'Solicitação negada' : 'Aguardando parecer final' 
-    }
-  ]
-
   return (
     <div className="h-screen flex overflow-hidden font-body-md bg-background">
       <Sidebar role="medico" />
 
       <main className="flex-1 ml-0 md:ml-64 flex flex-col h-screen overflow-y-auto relative pb-24 md:pb-0">
         
+        {commFeedback && (
+          <div className="bg-secondary text-on-secondary px-4 py-3 text-sm font-bold text-center flex items-center justify-center gap-2 shadow-lg sticky top-0 z-50 animate-bounce">
+            <span className="material-symbols-outlined text-lg">mark_email_read</span>
+            {commFeedback}
+          </div>
+        )}
+
         {saveSuccess && (
           <div className="bg-emerald-600 text-white px-4 py-3 text-sm font-bold text-center flex items-center justify-center gap-2 shadow-md sticky top-0 z-50 animate-bounce">
             <span className="material-symbols-outlined text-lg">check_circle</span>
@@ -260,7 +382,7 @@ export default function CaseDetails() {
           </div>
         )}
 
-        <div className="w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-stack-lg lg:py-12">
+        <div className="w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-stack-lg lg:py-10">
           
           {/* Header */}
           <div className="mb-stack-lg flex flex-col gap-2">
@@ -276,13 +398,22 @@ export default function CaseDetails() {
                 <h2 className="font-headline-lg text-headline-lg text-on-background font-black truncate max-w-xl">
                   {item.patients?.name || 'Caso Clínico'}
                 </h2>
-                <p className="font-body-lg text-body-lg text-on-surface-variant mt-1">
+                <p className="font-body-lg text-body-lg text-on-surface-variant mt-0.5">
                   Procedimento: {item.procedures?.description} • Dr. Silva
                 </p>
               </div>
               
               {/* Status Selector + Salvar Button in Header */}
               <div className="flex flex-wrap items-center gap-3 self-start sm:self-auto">
+                <button
+                  type="button"
+                  onClick={() => setQuickCommOpen(true)}
+                  className="bg-secondary/10 hover:bg-secondary text-secondary hover:text-on-secondary px-4 py-2.5 rounded-xl font-label-md text-xs font-bold flex items-center gap-2 border border-secondary/30 transition-all shadow-sm"
+                >
+                  <span className="material-symbols-outlined text-[18px]">support_agent</span>
+                  <span>Falar com Camila / Suporte</span>
+                </button>
+
                 <div className="flex items-center gap-2 bg-surface-container-lowest p-1.5 rounded-xl border border-outline-variant/40 shadow-sm">
                   <span className="text-xs font-bold text-on-surface-variant pl-2">Status:</span>
                   <select
@@ -325,59 +456,16 @@ export default function CaseDetails() {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-gutter items-start">
-            {/* Left/Middle: Case Details & Documents */}
+            
+            {/* Left/Middle: Summary + Follow-up da Camila + Budget */}
             <div className="col-span-1 lg:col-span-2 flex flex-col gap-gutter">
               
-              {/* Timeline Card */}
-              <div className="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/30 shadow-level-1">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6 border-b border-outline-variant/20 pb-3">
-                  <h3 className="font-title-lg text-title-lg text-on-background font-bold flex items-center gap-2">
-                    <span className="material-symbols-outlined text-secondary">timeline</span>
-                    Status da Solicitação
-                  </h3>
-                  
-                  {/* Quick Change Chips */}
-                  <div className="flex flex-wrap gap-1.5 items-center">
-                    <span className="text-[11px] text-on-surface-variant font-medium mr-1">Selecionar:</span>
-                    {['Em Análise', 'Autorizado', 'Pendente Docs', 'Negado'].map(st => (
-                      <button
-                        key={st}
-                        type="button"
-                        onClick={() => setStatus(st)}
-                        className={`text-[11px] font-bold px-2.5 py-1 rounded-md transition-all ${
-                          status === st 
-                            ? 'bg-secondary text-on-secondary shadow-sm'
-                            : 'bg-surface-container hover:bg-surface-container-high text-on-surface-variant'
-                        }`}
-                      >
-                        {st}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-                
-                <div className="relative pl-6 space-y-6 before:absolute before:left-2 before:top-2 before:bottom-2 before:w-0.5 before:bg-outline-variant/30">
-                  {timelineSteps.map((step, idx) => (
-                    <div key={idx} className="relative flex gap-4 items-start">
-                      <div className={`absolute -left-6 w-4.5 h-4.5 rounded-full border-4 border-surface-container-lowest flex items-center justify-center z-10 ${
-                        step.active ? 'bg-secondary' : 'bg-outline-variant'
-                      }`} />
-                      <div>
-                        <h4 className={`font-semibold text-body-md ${step.active ? 'text-on-background' : 'text-on-surface-variant'}`}>
-                          {step.label}
-                        </h4>
-                        <p className="text-xs text-on-surface-variant mt-0.5">{step.desc}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Summary & Edit Card */}
+              {/* Key Details Card */}
               <div className="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/30 shadow-level-1 flex flex-col gap-4">
                 <div className="flex justify-between items-center border-b border-outline-variant/30 pb-2">
-                  <h3 className="font-title-lg text-title-lg text-on-background font-bold">
-                    Resumo Clínico & Informações do Pedido
+                  <h3 className="font-title-lg text-title-lg text-on-background font-bold flex items-center gap-2">
+                    <span className="material-symbols-outlined text-secondary">assignment</span>
+                    Informações do Pedido & Convênio
                   </h3>
                   {isDirty && (
                     <span className="text-xs font-bold text-amber-700 bg-amber-100 px-2.5 py-1 rounded-md border border-amber-300">
@@ -386,7 +474,7 @@ export default function CaseDetails() {
                   )}
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 text-body-md">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 text-body-md">
                   <div>
                     <span className="block text-xs text-on-surface-variant font-medium">CPF do Paciente</span>
                     <span className="font-semibold text-on-background">{item.patients?.cpf || '000.000.000-00'}</span>
@@ -397,55 +485,154 @@ export default function CaseDetails() {
                   </div>
                   <div>
                     <span className="block text-xs text-on-surface-variant font-medium">Operadora / Convênio</span>
-                    <span className="font-semibold text-on-background">{item.patients?.insurance || 'Bradesco'}</span>
+                    <span className="font-semibold text-on-background flex items-center gap-1">
+                      <span className="material-symbols-outlined text-secondary text-sm">health_and_safety</span>
+                      {item.insurance || item.patients?.insurance || 'Bradesco Saúde'}
+                    </span>
                   </div>
                   <div>
-                    <label className="block text-xs text-on-surface-variant font-medium mb-1">Data Proposta da Cirurgia</label>
-                    <input
-                      type="date"
-                      value={proposedDate}
-                      onChange={(e) => setProposedDate(e.target.value)}
-                      className="w-full bg-surface-container-low border border-outline-variant/50 rounded-lg px-2.5 py-1 text-xs font-semibold text-on-background focus:ring-1 focus:ring-secondary"
-                    />
+                    <span className="block text-xs text-on-surface-variant font-medium">Hospital Previsto</span>
+                    <span className="font-semibold text-on-background">{item.hospitals?.name}</span>
+                  </div>
+                  <div>
+                    <span className="block text-xs text-on-surface-variant font-medium">Fornecedor Indicado</span>
+                    <span className="font-semibold text-on-background text-xs">{supplierIndicated}</span>
+                  </div>
+                  <div>
+                    <span className="block text-xs text-on-surface-variant font-medium">Fornecedor Autorizado</span>
+                    <span className="font-semibold text-on-background text-xs">{supplierAuthorized}</span>
                   </div>
                 </div>
 
-                <div className="mt-4 pt-4 border-t border-outline-variant/30">
-                  <label className="block text-xs text-on-surface-variant font-medium mb-1.5">
-                    Diagnóstico e Detalhes Clínicos
+                <div className="mt-2 pt-3 border-t border-outline-variant/20">
+                  <label className="block text-xs text-on-surface-variant font-medium mb-1">
+                    Diagnóstico e Justificativa Clínica
                   </label>
                   <textarea
                     rows={3}
                     value={clinicalSummary}
                     onChange={(e) => setClinicalSummary(e.target.value)}
-                    placeholder="Descreva a indicação cirúrgica, laudos e justificativa..."
+                    placeholder="Descreva a indicação cirúrgica..."
                     className="w-full bg-surface-container-low border border-outline-variant/50 rounded-xl p-3 text-body-md text-on-background focus:ring-2 focus:ring-secondary leading-relaxed resize-y"
                   />
                 </div>
+              </div>
 
-                {/* Save button inside card */}
-                {isDirty && (
-                  <div className="pt-3 border-t border-outline-variant/30 flex justify-end">
-                    <button
-                      type="button"
-                      onClick={handleSave}
-                      disabled={saving}
-                      className="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2 rounded-xl text-xs font-bold flex items-center gap-2 shadow-md transition-all"
-                    >
-                      <span className="material-symbols-outlined text-[16px]">{saving ? 'sync' : 'save'}</span>
-                      <span>{saving ? 'Salvando...' : 'Salvar Alterações'}</span>
-                    </button>
+              {/* SEÇÃO PRINCIPAL SOLICITADA: Follow-up da Camila (Operação Tá Autorizado) */}
+              <div className="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/30 shadow-level-1 flex flex-col gap-5">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-outline-variant/30 pb-3">
+                  <div>
+                    <h3 className="font-title-lg text-title-lg text-on-background font-black flex items-center gap-2">
+                      <span className="material-symbols-outlined text-secondary text-2xl">support_agent</span>
+                      Follow-up Operacional (Acompanhamento da Camila)
+                    </h3>
+                    <p className="text-xs text-on-surface-variant mt-0.5">
+                      Registro de contatos com a operadora, ligações, protocolos e andamento regulatório.
+                    </p>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => setIsAddingFollowUp(!isAddingFollowUp)}
+                    className="bg-surface-container hover:bg-surface-container-high text-secondary px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-colors self-start sm:self-auto"
+                  >
+                    <span className="material-symbols-outlined text-sm">{isAddingFollowUp ? 'close' : 'add'}</span>
+                    <span>{isAddingFollowUp ? 'Fechar' : 'Adicionar Nota de Follow-up'}</span>
+                  </button>
+                </div>
+
+                {/* Form to Add New Follow-up Note */}
+                {isAddingFollowUp && (
+                  <form onSubmit={handleAddFollowUp} className="bg-surface-container-low p-4 rounded-xl border border-secondary/30 flex flex-col gap-3 animate-fade-in">
+                    <h4 className="text-xs font-bold text-on-background flex items-center gap-1.5">
+                      <span className="material-symbols-outlined text-secondary text-sm">edit_note</span>
+                      Nova Atualização de Follow-up (Camila / Operação Tá Autorizado)
+                    </h4>
+                    <input
+                      type="text"
+                      placeholder="Título da ação (Ex: Contato telefônico com auditor, cobrança de prazo, etc.)"
+                      value={newFollowUpTitle}
+                      onChange={(e) => setNewFollowUpTitle(e.target.value)}
+                      className="w-full bg-surface border border-outline-variant rounded-lg px-3 py-2 text-xs font-semibold text-on-background"
+                    />
+                    <textarea
+                      rows={2}
+                      required
+                      placeholder="Detalhes do andamento, número de protocolo, resposta do convênio..."
+                      value={newFollowUpNote}
+                      onChange={(e) => setNewFollowUpNote(e.target.value)}
+                      className="w-full bg-surface border border-outline-variant rounded-lg p-3 text-xs text-on-background"
+                    />
+                    <div className="flex justify-end gap-2">
+                      <button
+                        type="button"
+                        onClick={() => setIsAddingFollowUp(false)}
+                        className="px-3 py-1.5 rounded-lg text-xs font-semibold text-on-surface-variant hover:bg-surface-container"
+                      >
+                        Cancelar
+                      </button>
+                      <button
+                        type="submit"
+                        className="bg-secondary text-on-secondary px-4 py-1.5 rounded-lg text-xs font-bold hover:bg-on-background transition-colors"
+                      >
+                        Publicar Atualização
+                      </button>
+                    </div>
+                  </form>
+                )}
+
+                {/* Follow-up Timeline Items */}
+                {followUps.length === 0 ? (
+                  <div className="p-8 text-center bg-surface-container-low rounded-xl">
+                    <span className="material-symbols-outlined text-3xl text-on-surface-variant mb-1">history</span>
+                    <p className="text-xs text-on-surface-variant">Nenhum follow-up registrado ainda pela equipe de regulação.</p>
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    {followUps.map((fu, idx) => (
+                      <div 
+                        key={fu.id || idx}
+                        className="p-4 rounded-xl bg-surface-container-low/60 border border-outline-variant/30 flex flex-col gap-2 hover:border-secondary/40 transition-colors"
+                      >
+                        <div className="flex flex-wrap items-center justify-between gap-2">
+                          <div className="flex items-center gap-2">
+                            <span className="material-symbols-outlined text-secondary text-base">
+                              {fu.type === 'call' ? 'phone_in_talk' : fu.type === 'doc' ? 'description' : fu.type === 'warning' ? 'warning' : fu.type === 'success' ? 'check_circle' : 'chat'}
+                            </span>
+                            <h4 className="font-bold text-sm text-on-background">{fu.title || 'Acompanhamento'}</h4>
+                          </div>
+
+                          <div className="flex items-center gap-2">
+                            {fu.badge && (
+                              <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-secondary/15 text-secondary border border-secondary/20">
+                                {fu.badge}
+                              </span>
+                            )}
+                            <span className="text-[11px] text-on-surface-variant font-medium">{fu.date}</span>
+                          </div>
+                        </div>
+
+                        <p className="text-xs text-on-background leading-relaxed pl-6">
+                          {fu.content}
+                        </p>
+
+                        <div className="text-[11px] text-on-surface-variant font-semibold pl-6 pt-1 flex items-center gap-1">
+                          <span className="material-symbols-outlined text-xs text-secondary">person</span>
+                          <span>{fu.author || 'Camila (Equipe Tá Autorizado)'}</span>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 )}
               </div>
 
-              {/* Budget Details (if supplier has proposed one) */}
+              {/* Commercial Budget Details */}
               {item.budget_items && item.budget_items.length > 0 && (
                 <div className="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/30 shadow-level-1 flex flex-col gap-4">
                   <div className="flex justify-between items-center border-b border-outline-variant/30 pb-2">
                     <h3 className="font-title-lg text-title-lg text-on-background font-bold flex items-center gap-2">
                       <span className="material-symbols-outlined text-secondary">request_quote</span>
-                      Orçamento Comercial (OPME)
+                      Orçamento Comercial de Materiais (OPME)
                     </h3>
                     <span className="text-body-lg font-black text-secondary">
                       R$ {budgetTotal.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
@@ -465,70 +652,140 @@ export default function CaseDetails() {
                       </div>
                     ))}
                   </div>
-
-                  {/* Actions for Doctor/Insurance Approval */}
-                  <div className="pt-4 border-t border-outline-variant/30 flex flex-col sm:flex-row items-center justify-between gap-3 bg-surface-container-low p-4 rounded-xl">
-                    <div>
-                      <span className="text-xs font-bold text-on-background block">Aprovação do Orçamento</span>
-                      <p className="text-[11px] text-on-surface-variant">Aprovar valores informados pela distribuidora e liberar para a operadora.</p>
-                    </div>
-
-                    <div className="flex gap-2 w-full sm:w-auto">
-                      {status !== 'Autorizado' ? (
-                        <button
-                          type="button"
-                          disabled={saving}
-                          onClick={() => handleQuickStatusAndSave('Autorizado')}
-                          className="flex-1 sm:flex-none px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs flex items-center justify-center gap-1 shadow-sm transition-colors"
-                        >
-                          <span className="material-symbols-outlined text-sm">check_circle</span>
-                          {saving ? 'Aprovando...' : 'Aprovar Cotação'}
-                        </button>
-                      ) : (
-                        <span className="px-3 py-1.5 rounded-lg bg-emerald-100 text-emerald-900 text-xs font-bold flex items-center gap-1">
-                          <span className="material-symbols-outlined text-sm">verified</span>
-                          Cotação Aprovada & Autorizada
-                        </span>
-                      )}
-                    </div>
-                  </div>
                 </div>
               )}
+
             </div>
 
-            {/* Right Side: Documents */}
+            {/* Right Side: Documentos Identificados */}
             <div className="col-span-1 bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/30 shadow-level-1 flex flex-col gap-4">
               <h3 className="font-title-lg text-title-lg text-on-background font-bold border-b border-outline-variant/30 pb-2 flex items-center gap-2">
                 <span className="material-symbols-outlined text-secondary">folder_open</span>
-                Documentos
+                Documentos Identificados
               </h3>
 
               <div className="space-y-3">
                 {[
-                  { name: 'Guia de Solicitação Cirúrgica.pdf', size: '1.2 MB', date: 'Oct 12' },
-                  { name: 'Laudo de Justificativa Clínica.pdf', size: '0.8 MB', date: 'Oct 14' },
-                  { name: 'Exame de Imagem Recomendado.png', size: '4.5 MB', date: 'Oct 12' }
+                  { name: 'RG_CPF_Paciente.pdf', cat: 'RG / CPF', size: '1.1 MB', date: 'Anexado' },
+                  { name: 'Carteirinha_Convenio.png', cat: 'Carteirinha', size: '0.9 MB', date: 'Anexado' },
+                  { name: 'Exame_Tomografia_Imagens.zip', cat: 'Exames de Imagens', size: '14.2 MB', date: 'Anexado' },
+                  { name: 'Laudo_Medico_Justificativa.pdf', cat: 'Laudo Médico', size: '0.8 MB', date: 'Anexado' }
                 ].map((doc, idx) => (
                   <div key={idx} className="p-3 bg-surface-container rounded-lg border border-outline-variant/20 hover:border-secondary transition-all flex items-center justify-between group">
-                    <div className="flex items-center gap-2 min-w-0">
+                    <div className="flex items-center gap-2.5 min-w-0">
                       <span className="material-symbols-outlined text-secondary shrink-0">description</span>
                       <div className="min-w-0">
+                        <span className="text-[10px] font-bold text-secondary uppercase block">{doc.cat}</span>
                         <p className="text-body-md font-semibold truncate text-on-background pr-1">{doc.name}</p>
-                        <p className="text-xs text-on-surface-variant">{doc.size} • {doc.date}</p>
+                        <p className="text-[10px] text-on-surface-variant">{doc.size} • {doc.date}</p>
                       </div>
                     </div>
-                    <button className="text-secondary hover:text-on-background p-1.5 rounded-md hover:bg-surface-container-high transition-colors">
+                    <button className="text-secondary hover:text-on-background p-1.5 rounded-md hover:bg-surface-container-high transition-colors" title="Download do arquivo">
                       <span className="material-symbols-outlined text-[18px]">download</span>
                     </button>
                   </div>
                 ))}
               </div>
+
+              {/* Box de Ação Rápida de Suporte */}
+              <div className="mt-4 p-4 rounded-xl bg-surface-container-low border border-secondary/20 flex flex-col gap-2">
+                <span className="text-xs font-bold text-on-background flex items-center gap-1.5">
+                  <span className="material-symbols-outlined text-secondary text-sm">help</span>
+                  Precisa de apoio neste caso?
+                </span>
+                <p className="text-[11px] text-on-surface-variant leading-relaxed">
+                  Envie uma mensagem instantânea para a Camila verificar com o convênio ou agilizar a auditoria.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setQuickCommOpen(true)}
+                  className="mt-1 w-full py-2 rounded-lg bg-secondary text-on-secondary hover:bg-on-background font-bold text-xs transition-colors flex items-center justify-center gap-1 shadow-sm"
+                >
+                  <span className="material-symbols-outlined text-sm">chat</span>
+                  Solicitar Ação da Operação
+                </button>
+              </div>
             </div>
+
           </div>
         </div>
       </main>
+
+      {/* Modal de Comunicação Rápida do Cirurgião */}
+      {quickCommOpen && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4 z-50 animate-fade-in">
+          <div className="bg-surface-container-lowest rounded-2xl shadow-2xl border border-outline-variant/40 max-w-md w-full overflow-hidden">
+            <div className="p-5 border-b border-outline-variant/30 flex items-center justify-between bg-surface-container-low">
+              <div className="flex items-center gap-2.5">
+                <span className="material-symbols-outlined text-secondary text-2xl">support_agent</span>
+                <h3 className="font-bold text-base text-on-background">Falar com a Camila sobre este caso</h3>
+              </div>
+              <button onClick={() => setQuickCommOpen(false)} className="text-on-surface-variant hover:text-on-background">
+                <span className="material-symbols-outlined">close</span>
+              </button>
+            </div>
+
+            <form onSubmit={handleSendQuickCommunication} className="p-6 flex flex-col gap-4">
+              <div>
+                <label className="block text-xs font-bold text-on-surface-variant mb-2">Qual ação deseja solicitar?</label>
+                <div className="space-y-2">
+                  {[
+                    { id: 'call_insurance', icon: 'phone_in_talk', label: 'Pedir que liguem no convênio com urgência' },
+                    { id: 'patient_cancel', icon: 'person_cancel', label: 'Paciente quer desistir / reagendar' },
+                    { id: 'priority_review', icon: 'priority_high', label: 'Pedir que alguém revise o caso hoje' },
+                    { id: 'other', icon: 'edit_note', label: 'Outro recado / Mensagem aberta' }
+                  ].map(opt => (
+                    <button
+                      key={opt.id}
+                      type="button"
+                      onClick={() => setQuickActionType(opt.id)}
+                      className={`w-full p-2.5 rounded-lg border text-left text-xs flex items-center gap-2 transition-all ${
+                        quickActionType === opt.id
+                          ? 'bg-secondary text-on-secondary border-secondary font-bold'
+                          : 'bg-surface hover:bg-surface-container text-on-background border-outline-variant/40'
+                      }`}
+                    >
+                      <span className="material-symbols-outlined text-[16px]">{opt.icon}</span>
+                      <span>{opt.label}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-on-surface-variant mb-1">Observações ou detalhes:</label>
+                <textarea
+                  rows={3}
+                  value={quickActionDetails}
+                  onChange={(e) => setQuickActionDetails(e.target.value)}
+                  placeholder="Explique o motivo do pedido..."
+                  className="w-full bg-surface-container-low border border-outline-variant rounded-lg p-2.5 text-xs text-on-background resize-none"
+                />
+              </div>
+
+              <div className="flex justify-end gap-2 pt-2 border-t border-outline-variant/20">
+                <button
+                  type="button"
+                  onClick={() => setQuickCommOpen(false)}
+                  className="px-4 py-2 rounded-lg text-xs font-semibold text-on-surface-variant hover:bg-surface-container"
+                >
+                  Cancelar
+                </button>
+                <button
+                  type="submit"
+                  className="bg-secondary text-on-secondary px-5 py-2 rounded-lg text-xs font-bold hover:bg-on-background transition-colors flex items-center gap-1.5 shadow-sm"
+                >
+                  <span className="material-symbols-outlined text-sm">send</span>
+                  Enviar para a Camila
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
 
       <BottomNav role="medico" />
     </div>
   )
 }
+
